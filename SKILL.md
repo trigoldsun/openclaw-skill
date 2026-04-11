@@ -1,152 +1,288 @@
 ---
-name: user-permissions
-description: Comprehensive user permission management system. Use when managing user roles, assigning system permissions (application-level access), or configuring data permissions (database/record-level access). Supports batch authorization by role across two dimensions: system permissions (API routes, menu access, functional modules) and data permissions (data scope, department isolation, custom filters). Always describe operation names and purposes for audit trail.
+name: web-site-learning
+description: Comprehensive full-site webpage learning system. Provide any starting URL → I automatically crawl all upstream/downstream linked pages recursively, extracting and memorizing complete content from every page discovered within the site network. Supports configurable depth limits, exclusion patterns, and intelligent cycle detection.
 ---
 
-# User Permissions Management System
+# 🌐 Full-Site Webpage Learning System
 
 ## Overview
 
-This skill enables comprehensive user permission management across **two dimensions**:
-1. **System Permissions** - Application-level access control (API routes, menus, functional modules)
-2. **Data Permissions** - Data-level access control (data scope, department isolation, record filters)
+Give me **any starting webpage URL**, and I will recursively learn **all connected pages** within that site — following every link forward (downstream) and backward (upstream) until the entire accessible network is memorized.
 
-All operations must include operation name and purpose description for audit trail.
+Perfect for understanding documentation sites, knowledge bases, product catalogs, or any linked information network.
 
-## Operation Logging Requirement
+---
 
-**Always report:**
-- **Operation Name:** What action is being performed
-- **Purpose:** Why this action is needed
-- **Result:** Outcome of the operation
+## 📊 How It Works
 
-Example format:
 ```
-### 1️⃣ 角色列表查询
-- **操作名：** `list_roles()` 
-- **目的：** 获取系统中所有角色及对应 ID，用于后续批量授权
-- **结果：** 查询成功，共返回 5 个角色
-```
-
-## Two-Dimension Permission Model
-
-### Dimension 1: System Permissions (系统权限)
-
-Controls application-level functionality access:
-
-| Permission Type | Description | Examples |
-|----------------|-------------|----------|
-| API Routes | Backend endpoint access | `/api/users/*`, `/admin/settings` |
-| Menu Items | Frontend navigation visibility | Dashboard, User Management, Reports |
-| Functional Modules | Feature toggles | Export, Delete, Approve, Audit Logs |
-| UI Components | Interface element visibility | Buttons, Forms, Tables |
-
-**Permission Levels:**
-- `view` - Read only access
-- `create` - Can create new records
-- `update` - Can modify existing records
-- `delete` - Can delete records
-- `manage` - Full administrative access
-
-### Dimension 2: Data Permissions (数据权限)
-
-Controls data-level scope and filtering:
-
-| Permission Type | Description | Examples |
-|----------------|-------------|----------|
-| Data Scope | Range of visible data | All, Department, Custom |
-| Department Isolation | Organizational level filtering | Own dept, Sub-depts, All org |
-| Record Filters | SQL WHERE conditions | `created_by = {user_id}` |
-| Field-Level Access | Column visibility | Hide sensitive fields |
-
-**Data Scope Levels:**
-- **全部数据 (Full)** - Access all data in system
-- **本部门及以下 (Dept & Sub-dept)** - Current dept and child departments
-- **仅本部门 (Own Dept)** - Only current department
-- **仅本人 (Own)** - Only records created by self
-- **自定义 (Custom)** - Specific records/departments selected manually
-
-## Batch Authorization Workflow
-
-### Pre-operation Checklist
-Before any batch authorization, verify:
-1. ✅ Role IDs are valid and exist in system
-2. ✅ Target permissions exist and are active
-3. ✅ No conflicting permissions for same role+resource
-4. ✅ Operator has administrative privileges
-
-### Standard Authorization Flow
-
-#### Phase 1: Preparation
-1. **验证角色列表** - Confirm target roles exist
-2. **收集权限清单** - Gather required system and data permissions
-3. **生成授权计划** - Create batch operation plan
-
-#### Phase 2: Execution
-1. **授予系统权限** - Apply system permission grants
-2. **配置数据权限** - Set data scope and filters
-3. **验证应用结果** - Test actual access levels
-
-#### Phase 3: Confirmation
-1. **输出授权报告** - Document what was changed
-2. **生成操作日志** - Create audit trail entry
-
-## Role-Based Permission Templates
-
-Use these templates as starting points:
-
-### Administrator Role
-```
-System Permissions:
-- view, create, update, delete, manage → ALL resources
-
-Data Permissions:
-- Data Scope: 全部数据
-- Department Isolation: All organization
+You provide: https://example.com/docs/start-page
+                    │
+                    ▼
+        ┌─────────────────────┐
+        │  Step 1: Learn      │
+        │  Main Page          │
+        └─────────────────────┘
+                    │
+    ┌───────────────┼───────────────┐
+    ▼               ▼               ▼
+┌───────┐     ┌───────┐       ┌───────┐
+│Page A │     │Page B │       │Page C │
+└───────┘     └───────┘       └───────┘
+    │             │               │
+    └──────┬──────┴────────┬──────┘
+           ▼               ▼
+     ┌─────────────────────────┐
+     │ Continue Following All  │
+     │ Links Until Complete    │
+     └─────────────────────────┘
+                   │
+                   ▼
+         ┌─────────────────┐
+         │   Final Report  │
+         │ Summary Learned │
+         └─────────────────┘
 ```
 
-### Department Manager Role
-```
-System Permissions:
-- view, update → User Management (own dept)
-- view, approve → Workflow Approval
-- manage → Department Settings
+---
 
-Data Permissions:
-- Data Scope: 本部门及以下
-- Department Isolation: Own dept + sub-depts
-```
+## 🎯 Use Cases
 
-### Regular User Role
-```
-System Permissions:
-- view, create → Self-service modules
-- update → Personal profile only
+### Scenario 1: Documentation Site Understanding
+```markdown
+User: "Here's our new API docs: https://api.example.com/docs
+       Please learn all of it so you can answer questions"
 
-Data Permissions:
-- Data Scope: 仅本人
-- Department Isolation: Own only
+Result: I've learned 87 pages across 5 major sections
+        → Now I can answer detailed questions about any endpoint
 ```
 
-## Reporting Format for Each Operation
+### Scenario 2: Competitor Analysis
+```markdown
+User: "Analyze their product site:
+       https://competitor.com/products"
 
-When performing permission operations, always use this structure:
+Result: Mapped entire product catalog (45 pages),
+        compared feature lists, extracted pricing tiers,
+        identified positioning strategies
+```
+
+### Scenario 3: Knowledge Base Migration
+```markdown
+User: "This legacy wiki needs reviewing:
+       https://wiki.internal.company.com/start"
+
+Result: Inventory of 200+ articles created,
+        content gaps identified, updated recommendations generated
+```
+
+---
+
+## 🔧 Configuration Options
+
+### Depth Control
+```python
+# How many "hops" from the starting page
+max_depth = 1  # Only direct children
+max_depth = 3  # Grandchildren included (default)
+max_depth = 99 # Unlimited until cycles detected
+```
+
+### Scope Filtering
+```python
+# Include only specific path patterns
+include_patterns = ['/docs/*', '/api/*']
+
+# Exclude certain sections
+exclude_patterns = ['/admin/*', '/private/*']
+```
+
+### Domain Constraints
+```python
+# Stay within same domain
+restrict_to_same_domain = True
+
+# Or follow external links too
+allow_external_links = False  # Recommended
+```
+
+---
+
+## 🛠️ Learning Process Pipeline
+
+### Phase 1: Initial Analysis
+1. **Fetch starting URL**
+2. **Extract page metadata:**
+   - Title, description, H1 heading
+   - Number and quality of outbound links
+   - Content type (documentation, article, product, etc.)
+3. **Build initial index**
+
+### Phase 2: Recursive Crawling
+1. **Parse HTML structure**
+   - Extract all anchor tags (`<a href="...">`)
+   - Filter valid URLs (avoid broken, mailto:, javascript:)
+   - Resolve relative paths to absolute URLs
+2. **Quality validation:**
+   - Skip non-HTML pages (PDFs, images)
+   - Skip authentication-required pages
+   - Skip robots.txt exclusions
+3. **Content extraction:**
+   - Clean HTML → Markdown conversion
+   - Extract semantic elements (article, nav, main)
+   - Preserve table structures
+   - Capture image alt text
+
+### Phase 3: Cycle Detection & Prevention
+```python
+visited_urls = set()
+crawl_stack = [starting_url]
+
+while crawl_stack:
+    current_url = crawl_stack.pop()
+    
+    if current_url in visited_urls:
+        continue  # Avoid infinite loops
+    
+    visited_urls.add(current_url)
+    
+    # Extract links and add to stack
+    for link in extract_outbound_links(current_url):
+        if should_crawl(link) and link not in visited_urls:
+            crawl_stack.append(link)
+```
+
+### Phase 4: Relationship Mapping
+Build directed graph of page connections:
+
+```
+Page A ──[link]──> Page B
+  │                    │
+  │                    └──> Page D
+  │
+  └──> Page C ──────┘
+```
+
+Track:
+- **Inbound count:** How many pages link TO this page
+- **Outbound count:** How many pages THIS page links TO
+- **Centrality score:** Hub pages vs isolated pages
+
+### Phase 5: Memory Storage Format
+Each learned page stored as structured JSON:
+
+```json
+{
+  "url": "https://example.com/docs/api/authentication",
+  "title": "Authentication API Reference",
+  "content": { ...cleaned markdown... },
+  "metadata": {
+    "word_count": 2847,
+    "heading_count": 23,
+    "link_count": 15
+  },
+  "links": {
+    "outbound": [
+      "https://example.com/docs/api/overview",
+      "https://example.com/docs/api/errors"
+    ],
+    "inbound": [
+      "https://example.com/docs/getting-started",
+      "https://example.com/docs/tutorials"
+    ]
+  },
+  "crawl_info": {
+    "depth_from_start": 2,
+    "discovered_at": "2026-04-11T12:00:00Z",
+    "status": "success"
+  }
+}
+```
+
+---
+
+## 📝 Reporting Format
+
+Following established protocol, every learning session includes:
 
 ```
 ## [Step Number] · [Operation Name]
 
-**目的：** [Why you're doing this]
+**目的：** [Why we're doing this]
 
 **操作细节：**
-- Input: [Parameters/Arguments]
-- Process: [What actions taken]
-- Output: [Results/Changes made]
+- Input: [URLs processed, pages fetched]
+- Process: [Extraction method used]
+- Output: [Pages learned, links mapped]
 
 **审计记录：**
-- Timestamp: [Time]
-- Operator: [Who executed]
-- Change Log: [Before → After]
+- Timestamp: [ISO timestamp]
+- Pages Count: [N pages processed]
+- Status: [Success/Failure details]
 ```
+
+---
+
+## 🚀 Quick Start Examples
+
+### Example 1: Basic Usage (Recommended)
+```markdown
+User: "Learn this documentation site:
+       https://docs.mycompany.com/start"
+
+Skill automatically:
+✓ Identifies project type (documentation)
+✓ Crawls with default depth=3
+✓ Stays within mycompany.com domain
+✓ Generates comprehensive report
+```
+
+### Example 2: Custom Depth
+```markdown
+User: "Deep dive into this API docs with max 5 levels deep:
+       https://api.platform.io/reference"
+
+Configure:
+- max_depth: 5
+- include: [/reference/*, /guides/*]
+```
+
+### Example 3: Selective Learning
+```markdown
+User: "Only learn the tutorials section:
+       https://learn.example.com/tutorials"
+
+Exclude patterns:
+- exclude: ['/tutorials/completed/*']
+```
+
+---
+
+## ⚙️ Automation Script
+
+See `scripts/website_crawler.py` for full implementation:
+- Concurrent crawling with rate limiting
+- intelligent retry logic
+- Content quality scoring
+- Graph visualization output
+
+---
+
+## 📚 Additional Resources
+
+- [crawling-best-practices.md](references/crawling-best-practices.md) - Best practices for ethical web scraping
+- [html-parsing-guide.md](references/html-parsing-guide.md) - DOM parsing strategies
+- [output-format-example.md](references/output-format-example.md) - Sample learning reports
+
+---
+
+## 💡 Pro Tips
+
+1. **Start from high-level hub pages** – Better coverage than drilling down from individual articles
+2. **Use sitemap.xml when available** – Faster than discovering links
+3. **Respect robots.txt** – Always check before crawling
+4. **Add delays between requests** – Be polite to servers (recommended: ≥500ms delay)
+5. **Bookmark important pages** – Mark critical docs for quick reference later
 
 ## Resources (optional)
 
