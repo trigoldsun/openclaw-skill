@@ -1,0 +1,42 @@
+{
+  "id": "202604111411-wechat-miniapp-getstart",
+  "title": "微信小程序开发 - 快速入门完整指南",
+  "type": "note",
+  "created_at": "2026-04-11T14:11:00Z",
+  "updated_at": "2026-04-11T14:11:00Z",
+  
+  "dimensions": {
+    "topic": ["WeChat MiniProgram", "Mobile Development", "Quick Start"],
+    "project": ["Personal KB", "MiniApp Development"],
+    "person": ["myself", "孙鑫"],
+    "time": {
+      "date": "2026-04-11",
+      "week": "2026-W15",
+      "quarter": "2026-Q2",
+      "year": 2026
+    },
+    "status": "approved"
+  },
+  
+  "content": {
+    "summary": "从微信开发者工具安装到第一个小程序上线的完整流程学习总结，涵盖账号申请、环境搭建、项目创建、编译预览等核心步骤",
+    "body": "# 微信小程序开发 - 快速入门指南\n\n## 📚 信息来源\n**官方文档:** https://developers.weixin.qq.com/miniprogram/dev/framework/quickstart/getstart.html\n\n---\n\n## 🎯 一、准备工作\n\n### 1.1 申请小程序账号\n\n**步骤:**\n1. 访问 [小程序注册页](https://mp.weixin.qq.com/wxopen/waregister?action=step1)\n2. 填写信息并提交资料\n3. 完成认证获得小程序账号\n\n**账号类型选择:**\n| 类型 | 所需材料 | 费用 | 审核周期 |\n|------|----------|------|----------|\n| **个人** | 身份证 + 手机号 | ¥0 | 1-3 天 |\n| **企业** | 营业执照 + 法人信息 | ¥300/年 | 1-3 天 |\n| **政府** | 组织机构代码 | ¥0 | 3-7 天 |\n| **媒体** | 媒体许可证 | ¥0 | 3-7 天 |\n\n**重要提示:**\n- AppID 是小程序的唯一标识（类似身份证）\n- 需要在 [小程序后台](https://mp.weixin.qq.com) → 开发 → 开发设置 中查看\n\n---\n\n### 1.2 下载开发者工具\n\n**下载地址:** https://developers.weixin.qq.com/miniprogram/dev/devtools/download.html\n\n**支持平台:**\n- ✅ Windows 7/8/10/11 (64 位)\n- ✅ macOS 10.13+ (Intel 或 Apple Silicon)\n- ✅ Linux Ubuntu 18.04+ / CentOS 7+\n\n**安装后配置:**\n1. 运行开发者工具\n2. 用微信扫码登录\n3. 准备开始开发\n\n---\n\n## 🏗️ 二、创建第一个小程序\n\n### 2.1 新建项目\n\n**操作流程:**\n```\n开发者工具 → \"＋\" → \"新建项目\"\n→ 选择代码存放路径（空目录）\n→ 填入 AppID\n→ 输入项目名称\n→ 勾选 \"不使用云服务\"\n→ 点击 \"新建\"\n```\n\n### 2.2 项目结构\n\n创建完成后，项目包含以下文件:\n\n```\nyour-project/\n├── app.json           # 全局配置文件\n├── project.config.json # 工具配置\n├── app.js             # 应用逻辑\n├── app.wxss           # 全局样式\n│\n├── pages/\n│   └── index/         # 首页目录\n│       ├── index.js\n│       ├── index.json\n│       ├── index.wxml\n│       └── index.wxss\n│\n└── utils/\n    └── util.js        # 工具函数\n```\n\n---\n\n## 🔧 三、编译与预览\n\n### 3.1 本地编译\n\n在开发者工具中:\n1. 点击右上角 **编译按钮**\n2. 左侧模拟器展示页面效果\n3. 检查控制台错误日志\n\n### 3.2 真机预览\n\n**两种方式:**\n\n#### 方式 A: 微信扫码预览\n```\n工具栏 → \"预览\" → 打开微信扫描出现的二维码\n```\n\n#### 方式 B: 体验版\n```\n工具栏 → \"真机调试\" → 绑定测试微信号\n```\n\n---\n\n## 📊 四、核心知识点总结\n\n### 4.1 小程序四大文件类型\n\n| 后缀 | 作用 | 说明 |\n|------|------|------|\n| **.json** | 配置文件 | JSON 格式，定义配置项 |\n| **.wxml** | 视图模板 | 类似 HTML，定义页面结构 |\n| **.wxss** | 样式表 | 类似 CSS，定义页面样式 |\n| **.js** | 逻辑脚本 | 处理业务逻辑和用户交互 |\n\n### 4.2 JSON 配置文件详解\n\n#### app.json (全局配置)\n```json\n{\n  \"pages\": [\n    \"pages/index/index\",\n    \"pages/logs/logs\"\n  ],\n  \"window\": {\n    \"navigationBarTitleText\": \"My App\",\n    \"navigationBarBackgroundColor\": \"#ffffff\"\n  },\n  \"tabBar\": {\n    \"list\": []\n  }\n}\n```\n\n**关键字段:**\n- `pages`: 页面路径数组（必须包含首页）\n- `window`: 全局窗口表现设置\n- `tabBar`: 底部导航配置（可选）\n\n#### project.config.json (工具配置)\n自动生成的工具配置文件，包含:\n- 编辑器偏好设置\n- 编译配置\n- 上传压缩选项等\n\n#### page.json (页面级配置)\n每个页面可单独配置:\n```json\n{\n  \"navigationBarTitleText\": \"页面标题\",\n  \"enablePullDownRefresh\": true\n}\n```\n\n### 4.3 WXML 模板语法\n\n**基础标签:**\n```html\n<!-- view: 块元素 -->\n<view class=\"container\">Hello</view>\n\n<!-- text: 文本元素 -->\n<text>这是一个文本</text>\n\n<!-- button: 按钮 -->\n<button type=\"primary\">点我</button>\n\n<!-- image: 图片 -->\n<image src=\"/images/logo.png\" mode=\"aspectFit\"></image>\n\n<!-- input: 输入框 -->\n<input placeholder=\"请输入内容\" />\n```\n\n**条件渲染:**\n```html\n<!-- wx:if -->\n<view wx:if=\"{{show}}\">显示内容</view>\n<view wx:else>隐藏内容</view>\n\n<!-- 循环 -->\n<block wx:for=\"{{items}}\" wx:key=\"index\">\n  <view>{{item}}</view>\n</block>\n```\n\n**数据绑定:**\n```html\n<!-- 单表达式绑定 -->\n<view>{{message}}</view>\n\n<!-- 多表达式绑定 -->\n<view>Hello {{firstName}}, {{lastName}}!</view>\n\n<!-- 事件绑定 -->\n<button bindtap=\"onClick\">点击</button>\n```\n\n### 4.4 WXSS 样式系统\n\n**新增单位:**\n- `rpx`: 响应式像素，自动适配不同屏幕宽度\n- 例如：屏幕宽 750rpx，一个 rpx = 屏幕宽度的 1/750\n\n**全局 vs 局部样式:**\n```css\n/* app.wxss - 全局样式 */\n.container {\n  display: flex;\n  padding: 20rpx;\n}\n\n/* pages/index/index.wxss - 页面局部样式 */\n.button {\n  background-color: #07c160;\n}\n```\n\n**支持的选择器:**\n- Class 选择器 (`.class`)\n- ID 选择器 (`#id`)\n- 元素选择器 (`tagname`)\n- 后代选择器 (.a .b)\n- 子选择器 (.a > .b)\n\n**不支持的选择器:**\n- 伪类选择器 (:hover, :focus)\n- 属性选择器 ([type=\"text\"])\n- 后代通配符 (* .a b)\n\n### 4.5 JS 逻辑交互\n\n**事件处理:**\n```javascript\n// pages/index/index.js\nPage({\n  data: {\n    message: 'Hello World'\n  },\n  \n  onClickButton: function() {\n    this.setData({\n      message: '按钮被点击了'\n    });\n  }\n});\n```\n\n**调用小程序 API:**\n```javascript\n// 获取用户信息\nwx.getUserInfo({\n  success: function(res) {\n    console.log(res.userInfo);\n  }\n});\n\n// 本地存储\nwx.setStorageSync('key', 'value');\nconst value = wx.getStorageSync('key');\n\n// 网络请求\nwx.request({\n  url: 'https://api.example.com/data',\n  method: 'GET',\n  success: (res) => {\n    console.log(res.data);\n  }\n});\n```\n\n---\n\n## 🎨 五、组件参考\n\n### 5.1 基础组件\n\n| 组件 | 用途 | 示例 |\n|------|------|------|\n| `<view>` | 容器/布局 | `<view class=\"box\">内容</view>` |\n| `<text>` | 文本 | `<text>文字</text>` |\n| `<image>` | 图片 | `<image src=\"path\" mode=\"aspectFit\">` |\n| `<button>` | 按钮 | `<button type=\"primary\">提交</button>` |\n| `<input>` | 输入框 | `<input placeholder=\"请输入...\">` |\n| `<textarea>` | 文本域 | `<textarea auto-height></textarea>` |\n\n### 5.2 表单组件\n\n```html\n<form submit-bind=\"onSubmit\">\n  <input name=\"username\" />\n  <checkbox-group>\n    <label>\n      <checkbox value=\"option1\" />\n      Option 1\n    </label>\n  </checkbox-group>\n  <slider />\n  <switch />\n  <picker mode=\"selector\">\n    <!-- picker 内容 -->\n  </picker>\n</form>\n```\n\n### 5.3 导航组件\n\n```html\n<navigator url=\"/pages/detail/detail\">进入详情页</navigator>\n<button open-type=\"share\">分享给好友</button>\n```\n\n---\n\n## 📖 六、学习资源\n\n### 6.1 官方文档\n- [开发者文档](https://developers.weixin.qq.com/miniprogram/dev/framework/)\n- [API 参考](https://developers.weixin.qq.com/miniprogram/dev/api/)\n- [组件库](https://developers.weixin.qq.com/miniprogram/dev/component/)\n\n### 6.2 最佳实践\n- [性能优化](https://developers.weixin.qq.com/miniprogram/dev/framework/best-practice/performance.html)\n- [安全规范](https://developers.weixin.qq.com/miniprogram/dev/framework/security/)\n- [审核要求](https://developers.weixin.qq.com/miniprogram/dev/framework/guide/basis/capability-audit.html)\n\n### 6.3 常见问题\n- [FAQ 汇总](https://developers.weixin.qq.com/community/develop/doc)\n- [开发者社区](https://developers.weixin.qq.com/community/)\n\n---\n\n## ⏭️ 七、下一步计划\n\n1. **深入学习**\n   - 掌握完整的项目架构\n   - 理解 MVVM 设计模式\n   - 学习自定义组件开发\n\n2. **实战练习**\n   - 创建一个 Todo List 应用\n   - 实现简单的电商小程序\n   - 开发个人信息管理系统\n\n3. **能力提升**\n   - 集成后端 API\n   - 使用云开发服务\n   - 掌握微信支付功能\n\n---\n\n**学习内容来源:** 微信开放文档官方教程\n**学习日期:** 2026-04-11\n**适用人群:** 初学者、移动端开发者\n**难度等级:** ★★☆☆☆ (入门级)\n\n",
+    "tags": ["wechat-miniprogram", "mobile-development", "quick-start", "tutorial", "official-docs"]
+  },
+  
+  "relationships": {
+    "references": [],
+    "referenced_by": [
+      "202604111306-web-learning-skill"
+    ],
+    "depends_on": [],
+    "blocks": []
+  },
+  
+  "metadata": {
+    "source": "Web learning from developers.weixin.qq.com",
+    "last_reviewed_at": null,
+    "review_count": 0,
+    "version": 1
+  }
+}
