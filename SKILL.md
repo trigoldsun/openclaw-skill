@@ -1,342 +1,152 @@
 ---
-name: personal-knowledge-base
-description: Structured personal knowledge management system with multi-dimensional classification and cross-referencing. Organize notes, decisions, meetings, projects by multiple logical dimensions (topic, project, person, time, status). Automatic relationship tracking between related items. Simple JSON-based structure for easy querying and linking.
+name: user-permissions
+description: Comprehensive user permission management system. Use when managing user roles, assigning system permissions (application-level access), or configuring data permissions (database/record-level access). Supports batch authorization by role across two dimensions: system permissions (API routes, menu access, functional modules) and data permissions (data scope, department isolation, custom filters). Always describe operation names and purposes for audit trail.
 ---
 
-# 🧠 Personal Knowledge Base System
+# User Permissions Management System
 
 ## Overview
 
-A **simple yet powerful** personal knowledge management system organized by **multiple logical dimensions**. Every piece of knowledge is classified, indexed, and linked to related items.
+This skill enables comprehensive user permission management across **two dimensions**:
+1. **System Permissions** - Application-level access control (API routes, menus, functional modules)
+2. **Data Permissions** - Data-level access control (data scope, department isolation, record filters)
 
-**Simple structure:** Single file per knowledge item + automatic relationship tracking  
-**Multi-dimensional:** Organize by topic, project, person, time, status simultaneously  
-**Linked relationships:** Automatic cross-referencing between related items
+All operations must include operation name and purpose description for audit trail.
 
----
+## Operation Logging Requirement
 
-## 📊 Knowledge Dimensions Framework
+**Always report:**
+- **Operation Name:** What action is being performed
+- **Purpose:** Why this action is needed
+- **Result:** Outcome of the operation
 
-### Primary Classification Dimensions
-
+Example format:
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    KNOWLEDGE INDEX                          │
-├──────────────┬──────────────┬──────────────┬───────────────┤
-│   Topic      │   Project    │    Person    │    Time       │
-│ (What?)      │ (Why?)       │ (Who?)       │ (When?)       │
-├──────────────┼──────────────┼──────────────┼───────────────┤
-│ Technology   │ Website Deploy│孙鑫        │ 2026-04-11   │
-│ Business     │ User Permissions│系统管理     │ Q1 2026     │
-│ Process      │ KB Creation  │ myself       │ Today       │
-│ ...          │ ...          │ team         │ Month       │
-└──────────────┴──────────────┴──────────────┴───────────────┘
+### 1️⃣ 角色列表查询
+- **操作名：** `list_roles()` 
+- **目的：** 获取系统中所有角色及对应 ID，用于后续批量授权
+- **结果：** 查询成功，共返回 5 个角色
 ```
 
-### Dimension Details
+## Two-Dimension Permission Model
 
-| Dimension | Description | Examples |
-|-----------|-------------|----------|
-| **Topic** | What category does this belong to? | Technology, Business, Process, Personal, Learning |
-| **Project** | Which project does this support? | Website Deploy, Permission System, Knowledge Base |
-| **Person** | Who is involved/mentioned? | myself, 孙鑫，team, client-name |
-| **Time** | When was this created/due? | YYYY-MM-DD, Q1-2026, 2026-Q1 |
-| **Status** | What's the current state? | draft, review, approved, archived |
+### Dimension 1: System Permissions (系统权限)
 
----
+Controls application-level functionality access:
 
-## 🗂️ File Structure
+| Permission Type | Description | Examples |
+|----------------|-------------|----------|
+| API Routes | Backend endpoint access | `/api/users/*`, `/admin/settings` |
+| Menu Items | Frontend navigation visibility | Dashboard, User Management, Reports |
+| Functional Modules | Feature toggles | Export, Delete, Approve, Audit Logs |
+| UI Components | Interface element visibility | Buttons, Forms, Tables |
 
+**Permission Levels:**
+- `view` - Read only access
+- `create` - Can create new records
+- `update` - Can modify existing records
+- `delete` - Can delete records
+- `manage` - Full administrative access
+
+### Dimension 2: Data Permissions (数据权限)
+
+Controls data-level scope and filtering:
+
+| Permission Type | Description | Examples |
+|----------------|-------------|----------|
+| Data Scope | Range of visible data | All, Department, Custom |
+| Department Isolation | Organizational level filtering | Own dept, Sub-depts, All org |
+| Record Filters | SQL WHERE conditions | `created_by = {user_id}` |
+| Field-Level Access | Column visibility | Hide sensitive fields |
+
+**Data Scope Levels:**
+- **全部数据 (Full)** - Access all data in system
+- **本部门及以下 (Dept & Sub-dept)** - Current dept and child departments
+- **仅本部门 (Own Dept)** - Only current department
+- **仅本人 (Own)** - Only records created by self
+- **自定义 (Custom)** - Specific records/departments selected manually
+
+## Batch Authorization Workflow
+
+### Pre-operation Checklist
+Before any batch authorization, verify:
+1. ✅ Role IDs are valid and exist in system
+2. ✅ Target permissions exist and are active
+3. ✅ No conflicting permissions for same role+resource
+4. ✅ Operator has administrative privileges
+
+### Standard Authorization Flow
+
+#### Phase 1: Preparation
+1. **验证角色列表** - Confirm target roles exist
+2. **收集权限清单** - Gather required system and data permissions
+3. **生成授权计划** - Create batch operation plan
+
+#### Phase 2: Execution
+1. **授予系统权限** - Apply system permission grants
+2. **配置数据权限** - Set data scope and filters
+3. **验证应用结果** - Test actual access levels
+
+#### Phase 3: Confirmation
+1. **输出授权报告** - Document what was changed
+2. **生成操作日志** - Create audit trail entry
+
+## Role-Based Permission Templates
+
+Use these templates as starting points:
+
+### Administrator Role
 ```
-personal-knowledge-base/
-├── SKILL.md                       # This documentation
-├── data/
-│   ├── notes/                     # Individual knowledge entries
-│   │   ├── 2026-04-11-knowledge-base-design.json
-│   │   ├── 2026-04-11-web-crawler-analysis.json
-│   │   └── ...
-│   ├── meetings/                  # Meeting records
-│   │   ├── meeting-2026-04-11-team-sync.json
-│   │   └── ...
-│   ├── decisions/                 # Important decisions
-│   │   ├── decision-tool-selection.json
-│   │   └── ...
-│   └── projects/                  # Project summaries
-│       ├── website-deployment.json
-│       └── ...
-├── index/
-│   ├── by-topic.json              # Index by topic
-│   ├── by-project.json            # Index by project
-│   ├── by-person.json             # Index by person
-│   ├── by-date.json               # Index by date
-│   └── relationships.json         # Relationship graph
-├── scripts/
-│   ├── add_entry.py               # CLI tool to add new entry
-│   ├── search_kb.py               # Search across all dimensions
-│   └── generate_report.py         # Generate knowledge reports
-└── templates/
-    └── entry-template.json        # Standard entry format
-```
+System Permissions:
+- view, create, update, delete, manage → ALL resources
 
----
-
-## 📄 Entry Template Format
-
-Every knowledge entry follows this standard JSON format:
-
-```json
-{
-  "id": "unique-id-generated",
-  "title": "Clear descriptive title",
-  "type": "note|meeting|decision|project|reference",
-  "created_at": "2026-04-11T12:59:00Z",
-  "updated_at": "2026-04-11T12:59:00Z",
-  
-  "dimensions": {
-    "topic": ["Technology", "Knowledge Management"],
-    "project": ["Personal KB", "Skill Development"],
-    "person": ["myself", "孙鑫"],
-    "time": {
-      "date": "2026-04-11",
-      "week": "2026-W15",
-      "quarter": "2026-Q2",
-      "year": 2026
-    },
-    "status": "draft"
-  },
-  
-  "content": {
-    "summary": "Brief one-sentence summary",
-    "body": "Full content here...",
-    "tags": ["automation", "system-design", "multi-dimension"]
-  },
-  
-  "relationships": {
-    "references": [
-      "entry-id-of-related-item-1",
-      "entry-id-of-related-item-2"
-    ],
-    "referenced_by": [],  // Auto-populated
-    "depends_on": [],
-    "blocks": []
-  }
-}
+Data Permissions:
+- Data Scope: 全部数据
+- Department Isolation: All organization
 ```
 
----
-
-## 🔗 Relationship Tracking
-
-### Relationship Types
-
-| Type | Meaning | Example |
-|------|---------|--------|
-| **references** | This item links TO another | Note references a decision |
-| **referenced_by** | Someone links TO this | Auto-tracked from references |
-| **depends_on** | This needs another first | Feature depends on API spec |
-| **blocks** | This blocks another | Release blocked by tests |
-
-### Example Relationship Graph
-
+### Department Manager Role
 ```
-Meeting Notes (2026-04-11)
-    ↓ references
-Decision: Tool Selection
-    ↓ depends_on
-Reference: Multi-dimensional Index Design
-    ↓ references
-Entry: Personal KB Template
-    ↓ created_from
-Project: Knowledge Base Creation
+System Permissions:
+- view, update → User Management (own dept)
+- view, approve → Workflow Approval
+- manage → Department Settings
+
+Data Permissions:
+- Data Scope: 本部门及以下
+- Department Isolation: Own dept + sub-depts
 ```
 
----
+### Regular User Role
+```
+System Permissions:
+- view, create → Self-service modules
+- update → Personal profile only
 
-## 🎯 Use Cases
-
-### Case 1: Quick Topic Lookup
-```markdown
-User: "Show me everything about 'knowledge base design'"
-
-System returns:
-✓ Notes from 2026-04-11 about KB
-✓ Related meeting minutes
-✓ Decisions made about tools
-✓ Projects using this concept
+Data Permissions:
+- Data Scope: 仅本人
+- Department Isolation: Own only
 ```
 
-### Case 2: Follow-up Reminder
-```markdown
-User: "What tasks from last week need follow-up?"
+## Reporting Format for Each Operation
 
-System returns:
-✓ Meetings from last week with action items
-✓ All references to those meetings
-✓ Tasks marked as 'review' status
+When performing permission operations, always use this structure:
+
 ```
+## [Step Number] · [Operation Name]
 
-### Case 3: Cross-reference Discovery
-```markdown
-User: "Show me all connections to 'permission system'"
+**目的：** [Why you're doing this]
 
-System returns:
-✓ Direct references from other notes
-✓ Related projects
-✓ People mentioned in those contexts
-✓ Timeline evolution
+**操作细节：**
+- Input: [Parameters/Arguments]
+- Process: [What actions taken]
+- Output: [Results/Changes made]
+
+**审计记录：**
+- Timestamp: [Time]
+- Operator: [Who executed]
+- Change Log: [Before → After]
 ```
-
----
-
-## ⚙️ Adding New Entries
-
-### Via CLI Command
-```bash
-python scripts/add_entry.py --title "New note" \n    --type note --topic "Technology" \n    --project "Personal KB" --person "myself"
-```
-
-### Interactive Mode
-```bash
-python scripts/add_entry.py --interactive
-```
-Prompts for details and auto-fills metadata
-
-### Quick Add from Terminal
-```bash
-# Create entry with minimal info
-./quick-add.sh "Meeting with team" \n    --meeting --person "myself,team" \n    --date today
-```
-
----
-
-## 🔍 Searching & Querying
-
-### By Topic
-```bash
-python scripts/search_kb.py --topic "Technology"
-```
-Returns all entries tagged with Technology
-
-### By Project
-```bash
-python scripts/search_kb.py --project "Personal KB"
-```
-Finds all work related to this project
-
-### By Person
-```bash
-python scripts/search_kb.py --person "孙鑫"
-```
-Shows all entries mentioning this person
-
-### Combined Filters
-```bash
-python scripts/search_kb.py \n    --topic "Technology" \n    --project "KB Creation" \n    --date-range 2026-04-01 2026-04-15
-```
-
-### Full-text Search
-```bash
-python scripts/search_kb.py --query "relationship indexing"
-```
-Searches content body for keywords
-
----
-
-## 📈 Generating Reports
-
-### Summary Report
-```bash
-python scripts/generate_report.py --type summary --output report-2026-04.md
-```
-Creates overview of all knowledge
-
-### Project Status
-```bash
-python scripts/generate_report.py --type project-status --project "KB Creation"
-```
-Current state and pending actions
-
-### Relationship Map
-```bash
-python scripts/generate_report.py --type relationships --format mermaid
-```
-Visual graph of connected knowledge
-
----
-
-## 💡 Best Practices
-
-### 1. Be Consistent
-- Use same naming conventions for topics/projects
-- Keep person names uniform ("myself" vs "me")
-- Stick to ISO date format (YYYY-MM-DD)
-
-### 2. Link Liberally
-- Connect related notes immediately
-- Document why you're linking
-- Review links when updating content
-
-### 3. Tag Wisely
-- Limit to 3-7 tags per entry
-- Prefer broad categories over specific ones
-- Review unused tags quarterly
-
-### 4. Status Discipline
-- Always mark status when adding
-- Update status when things change
-- Archive old drafts regularly
-
-### 5. Regular Maintenance
-- Weekly: Review and update status
-- Monthly: Clean up stale links
-- Quarterly: Merge duplicate entries
-
----
-
-## 🚀 Getting Started
-
-### 1. Initialize your first entry
-```bash
-mkdir -p personal-knowledge-base/data/notes
-cd personal-knowledge-base
-python scripts/add_entry.py --init
-```
-
-### 2. Add your first knowledge item
-```bash
-python scripts/add_entry.py \n    --title "Meeting: Team Sync" \n    --type meeting \n    --topic "Communication" \n    --person "myself,team"
-```
-
-### 3. Build relationships
-Edit the JSON and add reference IDs:
-```json
-"relationships": {
-  "references": ["entry-uuid-from-another-note"]
-}
-```
-
-### 4. Start searching
-```bash
-python scripts/search_kb.py --all
-```
-See everything you've collected!
-
----
-
-## 📚 Additional Resources
-
-- [index-structure-template.md](references/index-structure-template.md) - Index file schemas
-- [entry-format-example.md](references/entry-format-example.md) - Sample filled entries
-- [search-syntax-guide.md](references/search-syntax-guide.md) - Advanced search operators
-
----
-
-## ⚠️ Important Notes
-
-- **Don't over-index:** Only use dimensions that make sense for your context
-- **Keep it simple:** Start with core dimensions, expand as needed
-- **Manual links ok:** Not all relationships will be discoverable automatically
-- **Privacy matters:** Be careful with sensitive information storage
 
 ## Resources (optional)
 
