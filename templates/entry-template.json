@@ -1,0 +1,140 @@
+{
+  "schema_version": "1.0",
+  "fields": {
+    "id": {
+      "type": "string",
+      "description": "Unique identifier (UUID or timestamp-based)",
+      "example": "2026-04-11-kb-design"
+    },
+    "title": {
+      "type": "string",
+      "description": "Clear, descriptive title",
+      "example": "Knowledge Base Design Discussion"
+    },
+    "type": {
+      "type": "enum",
+      "values": ["note", "meeting", "decision", "project", "reference"],
+      "description": "Type of knowledge entry",
+      "example": "note"
+    },
+    "created_at": {
+      "type": "datetime",
+      "format": "ISO-8601",
+      "auto_fill": true,
+      "example": "2026-04-11T12:59:00Z"
+    },
+    "updated_at": {
+      "type": "datetime",
+      "format": "ISO-8601",
+      "auto_update": true,
+      "example": "2026-04-11T12:59:00Z"
+    },
+    "dimensions": {
+      "topic": {
+        "type": "array",
+        "min_items": 1,
+        "max_items": 5,
+        "example": ["Technology", "Knowledge Management"]
+      },
+      "project": {
+        "type": "array",
+        "min_items": 0,
+        "max_items": 3,
+        "example": ["Personal KB", "Skill Development"]
+      },
+      "person": {
+        "type": "array",
+        "min_items": 0,
+        "max_items": 10,
+        "allowed_values": ["myself", "team", specific-names],
+        "example": ["myself", "孙鑫"]
+      },
+      "time": {
+        "date": {
+          "type": "date",
+          "format": "YYYY-MM-DD",
+          "example": "2026-04-11"
+        },
+        "week": {
+          "type": "string",
+          "format": "YYYY-WNN",
+          "example": "2026-W15"
+        },
+        "quarter": {
+          "type": "string",
+          "format": "YYYY-QN",
+          "example": "2026-Q2"
+        },
+        "year": {
+          "type": "integer",
+          "example": 2026
+        }
+      },
+      "status": {
+        "type": "enum",
+        "values": ["draft", "review", "approved", "published", "archived"],
+        "default": "draft",
+        "example": "draft"
+      }
+    },
+    "content": {
+      "summary": {
+        "type": "string",
+        "max_length": 100,
+        "example": "Initial discussion about designing multi-dimensional knowledge indexing system."
+      },
+      "body": {
+        "type": "text",
+        "format": "markdown",
+        "example": "Full content here..."
+      },
+      "tags": {
+        "type": "array",
+        "min_items": 0,
+        "max_items": 7,
+        "example": ["automation", "system-design", "multi-dimension"]
+      }
+    },
+    "relationships": {
+      "references": {
+        "type": "array",
+        "description": "IDs of entries this one references",
+        "example": ["other-entry-id-1", "other-entry-id-2"]
+      },
+      "referenced_by": {
+        "type": "array",
+        "auto_populated": true,
+        "description": "IDs of entries that reference this one",
+        "example": []
+      },
+      "depends_on": {
+        "type": "array",
+        "description": "Entries this depends on to complete",
+        "example": ["prerequisite-entry"]
+      },
+      "blocks": {
+        "type": "array",
+        "description": "Entries blocked by this one",
+        "example": []
+      }
+    },
+    "metadata": {
+      "source": {
+        "type": "string",
+        "example": "Meeting with team"
+      },
+      "last_reviewed_at": {
+        "type": "datetime",
+        "nullable": true
+      },
+      "review_count": {
+        "type": "integer",
+        "default": 0
+      },
+      "version": {
+        "type": "integer",
+        "default": 1
+      }
+    }
+  }
+}
