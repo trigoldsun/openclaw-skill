@@ -1,0 +1,44 @@
+{
+  "id": "202604111306-itsm-service-request",
+  "title": "服务请求管理 (Service Request Management) 核心知识",
+  "type": "note",
+  "created_at": "2026-04-11T13:06:00Z",
+  "updated_at": "2026-04-11T13:06:00Z",
+  
+  "dimensions": {
+    "topic": ["ITSM", "Service Request Management", "Best Practices"],
+    "project": ["Personal KB"],
+    "person": ["myself"],
+    "time": {
+      "date": "2026-04-11",
+      "week": "2026-W15",
+      "quarter": "2026-Q2",
+      "year": 2026
+    },
+    "status": "review"
+  },
+  
+  "content": {
+    "summary": "服务请求管理是一种可重复的程序，用于处理各种客户服务请求，是 ITSM 7 项核心实践之一。",
+    "body": "# 服务请求管理详解\n\n## 定义\n\n服务请求管理 (Service Request Management) 是一种**可重复的程序**，用于处理各种客户服务请求。\n\n## 常见服务请求类型\n\n1. **应用访问权限申请** - 员工需要访问某个系统\n2. **软件增强功能** - 现有工具的升级或附加模块\n3. **硬件更新请求** - 新电脑、显示器、外围设备等\n4. **密码重置** - 最常见的服务请求类型\n5. **账户创建** - 新员工入职时的账户开通\n6. **访问权限变更** - 角色变更导致的权限调整\n\n## 工作流特点\n\n- **重复性高** - 大部分请求可标准化处理\n- **自动化潜力大** - 预设回复和自动审批\n- **客户自助优先** - 减少支持人员工作量\n- **快速响应期望** - 用户期待即时解决\n\n## 最佳实践 (8 个要点)\n\n### 1. 从最常见、最简单开始\n通过定义简单请求，可以为客户提供直接价值，同时让团队在构建过程中学习。\n\n### 2. 完整记录要求\n包括：\n- 问题字段\n- 审批流程\n- 履行流程\n- 履行团队\n- 流程负责人\n- SLA\n- 报告需求\n\n### 3. 合理捕获数据\n接收请求时捕获启动所需的数据，但不要向客户提出过多问题。\n\n### 4. 标准化和自动化审批\n例如：\n- 购买显示器的请求视为预先批准（自动）\n- 软件请求需要客户经理批准\n\n### 5. 查看履行流程\n确定负责的支持团队和特殊要求，尽可能自动化简化。\n\n### 6. 建立知识库\n创建请求时应纳入知识内容，自助服务的目标是更快满足需求并转移请求。\n\n### 7. 审核 SLA\n确保配备适当的衡量标准和通知，以便及时履行请求。\n\n### 8. 设置报告机制\n追踪指标：\n- CSAT (客户满意度)\n- 响应时间\n- 解决时间\n- 结束时间\n\n## 关键价值\n\n✅ **提升效率** - IT 团队专注更重要的事务  \n✅ **改善体验** - 统一的服务门户  \n✅ **降低成本** - 自动化减少人工  \n✅ **透明度** - 状态实时可见  \n✅ **可扩展性** - 随着组织增长而扩展\n\n## 工具要求\n\n优秀的服务请求管理系统应具备：\n\n1. **易用性** - 简洁直观的自助服务门户\n2. **协作能力** - 跨职能团队协作平台\n3. **灵活性** - 支持任何解决流程配置\n4. **自助服务** - 完善的知识库和自动化\n\n---\n\n## 参考链接\n\n- Atlassian Service Request Management: https://www.atlassian.com/zh/itsm/service-request-management\n\n---\n\n**来源**: Atlassian ITSM 文档学习\n**日期**: 2026-04-11",
+    "tags": ["service-request", "itil-practice", "automation", "best-practices"]
+  },
+  
+  "relationships": {
+    "references": [
+      "202604111306-itsm-learning"
+    ],
+    "referenced_by": [],
+    "depends_on": [
+      "202604111306-itsm-learning"
+    ],
+    "blocks": []
+  },
+  
+  "metadata": {
+    "source": "Web learning from https://www.atlassian.com/zh/itsm/service-request-management",
+    "last_reviewed_at": null,
+    "review_count": 0,
+    "version": 1
+  }
+}
