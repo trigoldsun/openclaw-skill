@@ -1,0 +1,44 @@
+{
+  "id": "202604111306-itsm-itam",
+  "title": "IT 资产管理 (IT Asset Management - ITAM) 完整指南",
+  "type": "note",
+  "created_at": "2026-04-11T13:06:00Z",
+  "updated_at": "2026-04-11T13:06:00Z",
+  
+  "dimensions": {
+    "topic": ["ITSM", "IT Asset Management", "ITAM"],
+    "project": ["Personal KB"],
+    "person": ["myself"],
+    "time": {
+      "date": "2026-04-11",
+      "week": "2026-W15",
+      "quarter": "2026-Q2",
+      "year": 2026
+    },
+    "status": "review"
+  },
+  
+  "content": {
+    "summary": "IT 资产管理是确保企业资产得到核算、部署、维护、升级和妥善处置的完整流程，对跟踪 IT 支出至关重要。",
+    "body": "# IT 资产管理 (ITAM) 全面解析\n\n## 定义\n\n**ITAM** = **IT Asset Management** (IT 资产管理)\n\n能确保企业资产得到：\n- 核算\n- 部署\n- 维护\n- 升级\n- 在适当时机进行妥善处置\n\n**简而言之**：对所有有价值的资产（有形或无形）进行跟踪并确保其合理使用。\n\n---\n\n## 为什么需要专业的 ITAM 工具？\n\n### 当前痛点\n\n根据 Gartner 研究显示：\n\n- ✗ **过度购买**: 组织平均浪费 **30%** 的软件许可证支出\n- ✗ **幽灵资产**: 每年因未追踪资产损失超过 **$50,000**\n- ✗ **合规风险**: 无法证明软件许可使用导致法律风险\n- ✗ **规划困难**: 缺乏准确数据难以预算未来需求\n\n### 何时需要 ITAM 软件？\n\n出现以下迹象时强烈建议采用专业工具：\n\n1. **依赖电子表格** - 用 Excel 手动追踪所有资产\n2. **年损失显著** - \"幽灵资产\"损失超过 $50,000/\n3. **跟不上变革** - 公司快速变革时无法及时更新\n4. **影子 IT** - 员工私自购买的软件不受控\n\n---\n\n## ITAM 核心功能模块\n\n### 1. 清单管理 (Inventory)\n\n- 创建详细的软硬件库存\n- 实时更新资产状态\n- 支持批量导入导出\n\n### 2. 生命周期成本计算 (TCO)\n\n- 初始采购成本\n- 维护费用\n- 培训成本\n- 终止成本\n- 总体拥有成本分析\n\n### 3. 持续跟踪\n\n- 许可证跟踪和到期提醒\n- 保修期限监控\n- 硬件更换周期提示\n- 软件版本更新状态\n\n### 4. 财务规划\n\n- 预算预测\n- ROI 分析\n- 成本分摊\n- 审计准备\n\n---\n\n## ITAM 与 CMDB 的区别\n\n| 维度 | ITAM | CMDB |\n|------|------|------|\n| **重点** | 财务和生命周期 | 技术配置和关系 |\n| **时间轴** | 全生命周期 | 运行时状态 |\n| **主要用户** | 财务、采购 | IT 运营、运维 |\n| **核心指标** | 成本、价值 | 影响、关系 |\n| **数据来源** | 采购记录、合同 | 自动发现、人工录入 |\n\n**共同点**：两者都服务于 ITSM 目标，通常协同工作\n\n---\n\n## ITIL 视角下的 ITAM\n\n在 ITIL 框架中，ITAM 是：\n\n- **8 项 ITIL 实践之一** (ITIL 4 从\"流程\"转向\"实践\")\n- **服务价值链**中的重要组成部分\n- 与 **Financial Management for IT Services** 紧密相关\n- 为 **Continual Improvement** 提供数据支持\n\n---\n\n## 实施最佳实践\n\n### 1. 明确范围\n确定哪些资产纳入 ITAM：\n- ✅ 所有终端设备 (电脑、手机、平板)\n- ✅ 网络设备 (路由器、交换机、防火墙)\n- ✅ 服务器和存储设备\n- ✅ 所有软件许可证\n- ⚠️ 外设是否需要取决于策略\n\n### 2. 自动化采集\n- 使用自动化工具发现网络资产\n- 集成现有管理系统\n- 减少手工录入错误\n\n### 3. 建立标准流程\n- 采购申请流程\n- 入库登记流程\n- 变更更新流程\n- 报废审批流程\n\n### 4. 定期审计\n- 季度盘点\n- 年度审计\n- 合规检查\n\n### 5. 培养文化\n- 全员参与意识\n- 责任落实到人\n- 与绩效挂钩\n\n---\n\n## 预期收益\n\n根据 Gartner 研究：\n\n| 收益类型 | 提升幅度 |\n|---------|----------|\n| 软件成本削减 | **30%** |\n| 资产管理效率 | **40%+** |\n| 合规性提升 | **50%+** |\n| 决策质量 | **60%+** |\n\n---\n\n## 典型工作流程\n\n```\n采购申请 → 审批通过 → 资产入库 → 分配使用 \n   ↓                                    ↓\n报废处置 ← 维护升级 ← 定期盘点 ← 状态变更\n```\n\n每个环节都需要记录和追踪。\n\n---\n\n## 参考资源\n\n- [Atlassian ITAM 详细指南](https://www.atlassian.com/zh/itsm/it-asset-management)\n- ITIL 4 Service Value System\n- COBIT 框架中的资产管理实践\n\n---\n\n**来源**: Atlassian ITSM 文档学习\n**日期**: 2026-04-11\n**关键数字**: Gartner 研究显示有效 ITAM 可实现软件成本削减 30%",
+    "tags": ["itam", "asset-management", "financial-planning", "gartner-data"]
+  },
+  
+  "relationships": {
+    "references": [
+      "202604111306-itsm-learning"
+    ],
+    "referenced_by": [],
+    "depends_on": [
+      "202604111306-itsm-learning"
+    ],
+    "blocks": []
+  },
+  
+  "metadata": {
+    "source": "Web learning from https://www.atlassian.com/zh/itsm/it-asset-management",
+    "last_reviewed_at": null,
+    "review_count": 0,
+    "version": 1
+  }
+}
