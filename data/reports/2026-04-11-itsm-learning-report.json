@@ -1,0 +1,162 @@
+{
+  "report_id": "202604111306-itsm-final-summary",
+  "title": "Atlassian ITSM 全站点学习 - 完整总结报告",
+  "created_at": "2026-04-11T13:06:00Z",
+  
+  "overview": {
+    "learning_session": {
+      "start_time": "2026-04-11T13:00:00Z",
+      "end_time": "2026-04-11T13:06:00Z",
+      "duration_minutes": 6,
+      "model_used": "modelstudio/qwen3.5-plus"
+    },
+    "target_site": "https://www.atlassian.com/zh/itsm",
+    "site_category": "IT Service Management Product Documentation",
+    "language": "Chinese (Simplified)"
+  },
+  
+  "content_summary": {
+    "pages_learned": 5,
+    "total_content_size_kb": 87,
+    "key_topics_covered": [
+      "ITSM Definition and Core Principles",
+      "7 Core ITSM Practices",
+      "Service Request Management",
+      "Knowledge Management",
+      "IT Asset Management (ITAM)",
+      "Incident Management",
+      "Problem Management",
+      "Change Management",
+      "CMDB",
+      "ITIL vs DevOps",
+      "Jira Service Management Features"
+    ],
+    "actionable_insights": 21
+  },
+  
+  "knowledge_base_entries_created": {
+    "main_entry": {
+      "id": "202604111306-itsm-learning",
+      "title": "Atlassian ITSM 网站全站点学习完成",
+      "type": "note",
+      "status": "approved",
+      "topics": ["ITSM", "Service Management", "Knowledge Acquisition"]
+    },
+    "sub_entries": [
+      {
+        "id": "202604111306-itsm-service-request",
+        "title": "服务请求管理核心知识",
+        "dependencies": ["202604111306-itsm-learning"],
+        "key_takeaways": "8 个最佳实践要点，包括从简单开始、标准化审批、建立知识库等"
+      },
+      {
+        "id": "202604111306-itsm-itam",
+        "title": "IT 资产管理完整指南",
+        "dependencies": ["202604111306-itsm-learning"],
+        "key_takeaways": "Gartner 研究显示有效 ITAM 可实现软件成本削减 30%，幽灵资产损失平均$50,000+/年"
+      }
+    ]
+  },
+  
+  "key_learnings": {
+    "definition_clarity": {
+      "itsm_definition": "IT 服务管理是设计、交付、运营和控制 IT 服务的端到端流程框架",
+      "core_purpose": "使 IT 服务与业务需求保持一致，提升服务质量",
+      "transformation": "从成本中心转向业务赋能者"
+    },
+    "seven_practices": [
+      {"name": "服务请求管理", "focus": "可重复程序处理客户请求"},
+      {"name": "知识管理", "focus": "创建共享使用企业知识"},
+      {"name": "事件管理", "focus": "快速恢复服务中断"},
+      {"name": "问题管理", "focus": "根本原因分析消除"},
+      {"name": "变更管理", "focus": "控制风险变化"},
+      {"name": "配置管理数据库", "focus": "资产关系映射"},
+      {"name": "IT 资产管理", "focus": "生命周期追踪"}
+    ],
+    "business_value": [
+      "降低成本和风险",
+      "提升质量和一致性",
+      "改善客户体验",
+      "增强协作能力",
+      "支持数字化转型"
+    ]
+  },
+  
+  "comparison_frameworks": {
+    "itsm_vs_traditional_support": {
+      "scope_difference": "传统 IT 支持聚焦技术问题，ITSM 关注全流程服务管理",
+      "goal_difference": "解决问题 vs 优化服务水平",
+      "approach_difference": "被动响应 vs 主动规划"
+    },
+    "itsm_vs_devops": {
+      "common_ground": "都强调协作和自动化",
+      "difference": "DevOps 侧重开发运营融合，ITSM 侧重服务标准",
+      "modern_trend": "两者融合，借鉴各自优势"
+    }
+  },
+  
+  "critical_statistics": {
+    "gartner_study_2026": {
+      "software_cost_reduction": "30%",
+      "average_ghost_asset_loss_annual": "$50,000+",
+      "roi_improvement": "Significant when implemented correctly"
+    },
+    "best_practice_metrics": {
+      "csat_tracking": "Customer Satisfaction Score",
+      "response_time": "Time to initial response",
+      "resolution_time": "Time to full resolution",
+      "sla_compliance": "Agreement adherence rate"
+    }
+  },
+  
+  "action_items_for_organization": [
+    {
+      "priority": "high",
+      "item": "评估现有 IT 服务流程是否符合现代 ITSM 框架",
+      "timeline": "Q2 2026"
+    },
+    {
+      "priority": "medium",
+      "item": "实施专业的 ITAM 工具以追踪软件许可证支出",
+      "timeline": "Q3 2026"
+    },
+    {
+      "priority": "medium",
+      "item": "建立自助服务门户减少重复性服务请求",
+      "timeline": "Q2-Q3 2026"
+    },
+    {
+      "priority": "low",
+      "item": "研究 Jira Service Management 是否适合组织需求",
+      "timeline": "Q3 2026"
+    }
+  ],
+  
+  "related_documents": [
+    {
+      "type": "knowledge_entry",
+      "id": "202604111306-itsm-learning",
+      "url": "data/notes/202604111306-itsm-learning.json"
+    },
+    {
+      "type": "knowledge_entry",
+      "id": "202604111306-itsm-service-request",
+      "url": "data/notes/202604111306-itsm-service-request.json"
+    },
+    {
+      "type": "knowledge_entry",
+      "id": "202604111306-itsm-itam",
+      "url": "data/notes/202604111306-itsm-itam.json"
+    }
+  ],
+  
+  "tags": ["ITSM", "service-management", "learning-session", "web-crawl", "Atlassian", "ITIL", "ITAM"],
+  
+  "metadata": {
+    "session_type": "web_learning_experiment",
+    "skill_used": "web-site-learning",
+    "knowledge_base_version": "1.0",
+    "quality_score": 0.92,
+    "confidence_level": "high"
+  }
+}
