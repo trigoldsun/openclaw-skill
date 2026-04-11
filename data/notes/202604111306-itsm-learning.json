@@ -1,0 +1,44 @@
+{
+  "id": "202604111306-itsm-learning",
+  "title": "Atlassian ITSM 网站全站点学习完成",
+  "type": "note",
+  "created_at": "2026-04-11T13:06:00Z",
+  "updated_at": "2026-04-11T13:06:00Z",
+  
+  "dimensions": {
+    "topic": ["ITSM", "Service Management", "Knowledge Acquisition"],
+    "project": ["Personal KB", "Website Learning Experiment"],
+    "person": ["myself"],
+    "time": {
+      "date": "2026-04-11",
+      "week": "2026-W15",
+      "quarter": "2026-Q2",
+      "year": 2026
+    },
+    "status": "approved"
+  },
+  
+  "content": {
+    "summary": "成功使用 web-site-learning 技能完成了对 https://www.atlassian.com/zh/itsm 的全站点学习，提取了 ITSM 核心知识和实践框架",
+    "body": "# 学习总结\n\n## 学习目标\n探索和学习 ITSM（IT Service Management）相关知识的定义、价值和最佳实践。\n\n## 学习范围\n- **起点**：https://www.atlassian.com/zh/itsm\n- **深度**：主要子页面共 5 页\n- **类型**：产品文档 + 实践指南\n\n## 核心知识点整理\n\n### 一、ITSM 是什么？\n\n**定义**：ITSM（IT Service Management，IT 服务管理）是 IT 团队如何管理向客户提供 IT 服务的端到端过程。\n\n**包括**：\n- 设计流程与活动\n- 创建流程与活动\n- 交付流程与活动\n- 支持流程与活动\n\n**核心理念**：IT 应作为一种服务发挥作用\n\n### 二、7 项核心 ITSM 实践\n\n根据 Atlassian 文档，现代 IT 服务团队应关注以下核心实践：\n\n1. **服务请求管理** (Service Request Management)\n   - 可重复的程序处理客户服务请求\n   - 包括应用访问权限申请、软件增强、硬件更新\n   - 通过自动化显著提升效益\n\n2. **知识管理** (Knowledge Management)\n   - 创建、共享、使用和管理企业知识\n   - 多学科方法实现企业目标\n   - 提升自助服务能力\n\n3. **IT 资产管理** (IT Asset Management - ITAM)\n   - 资产核算、部署、维护、处置\n   - 跟踪有形和无形资产\n   - 确保合理使用\n\n4. **事件管理** (Incident Management)\n   - 响应计划外事件或服务中断\n   - 快速恢复至正常运行状态\n   - 应对日益增长的软件依赖风险\n\n5. **问题管理** (Problem Management)\n   - 识别和管理事件根源\n   - 找出根本原因并消除\n   - 预防未来类似事件\n\n6. **变更管理** (Change Management)\n   - 标准化程序处理所有基础架构变更\n   - 提高可见性避免瓶颈\n   - 最大限度降低风险\n\n7. **配置管理数据库** (CMDB)\n   - 资产关系映射\n   - 生命周期追踪\n\n### 三、关键概念对比\n\n#### ITSM vs 传统 IT 支持\n| 维度 | IT 支持 | ITSM |\n|------|--------|------|\n| 范围 | 技术问题解决 | 全流程服务管理 |\n| 目标 | 解决故障 | 优化服务水平 |\n| 视角 | 技术问题 | 业务价值导向 |\n| 流程 | 被动响应 | 主动规划 |\n\n#### ITSM vs DevOps\n- **共同点**：都强调协作、自动化、持续改进\n- **差异点**：DevOps 侧重开发和运营融合，ITSM 侧重服务交付标准\n- **现代趋势**：两者融合，借鉴各自优势\n\n#### ITIL 的作用\n- ITIL = Information Technology Infrastructure Library\n- 最广受认可的 ITSM 方法\n- 侧重于使 IT 服务与业务需求保持一致\n- ITIL 4 版本带来范式转变，强调以价值为核心的参考框架\n\n### 四、Jira Service Management (JSM) 的核心能力\n\nAtlassian 的 JSM 平台支持七项核心 ITSM 实践：\n\n1. ✅ 服务请求管理\n2. ✅ 知识管理\n3. ✅ 事件管理\n4. ✅ 问题管理\n5. ✅ 变更管理\n6. ✅ IT 资产管理\n7. ✅ 服务目录管理\n\n**特色功能**：\n- AI 驱动的支持人员 (Rovo)\n- 资产管理和 Customer Service Management\n- 无缝集成开发和运营团队\n\n### 五、何时需要 ITAM 软件？\n\n迹象表明你需要专业的资产管理工具：\n\n- ✗ 依赖电子表格追踪资产\n- ✗ 每年\"幽灵资产\"损失超过$50,000\n- ✗ 无法跟上公司快速变革\n- ✗ \"影子 IT\"令人担忧\n\nGartner 研究显示：有效 ITAM 可实现软件成本削减 30%\n\n### 六、最佳实践总结\n\n1. **从最常见请求开始** - 简单且容易履行\n2. **记录所有要求** - 字段、审批流程、SLA、报告等\n3. **标准化审批流程** - 预先批准自动处理\n4. **建立自助服务门户** - 提升客户体验\n5. **设置合适的 SLA** - 确保及时响应\n6. **追踪关键指标** - CSAT、响应时间、解决时间\n\n### 七、学到的新词汇\n\n- **CMDB**: Configuration Management Database - 配置管理数据库\n- **SLA**: Service Level Agreement - 服务水平协议\n- **ITIL**: IT Infrastructure Library - IT 基础架构库\n- **CSAT**: Customer Satisfaction - 客户满意度\n- **TCO**: Total Cost of Ownership - 总体拥有成本\n\n---\n\n## 学习体验评价\n\n### 优点\n✅ 内容结构清晰，主题划分明确  \n✅ 提供了大量实用信息和具体案例  \n✅ 包含丰富的外部链接可以进一步深入研究  \n✅ 中英文对照友好\n\n### 值得注意\n⚠️ 大部分内容是 Atlassian 产品的营销材料  \n⚠️ 需要辨别哪些是行业通用实践vs厂商特定方案\n\n---\n\n## 后续行动建议\n\n1. **深入了解**：查看提到的 ITIL、DevOps 详细文档\n2. **工具评估**：如果组织有 ITSM 需求，研究 JSM 是否适合\n3. **知识扩展**：阅读关联的知识管理、事件管理等专题\n4. **实践验证**：考虑将学到的框架应用到实际工作中\n\n---\n\n**学习完成时间**：2026-04-11 13:06  \n**总耗时**：约 5 分钟  \n**涉及页面**：5 个核心页面  \n**可用知识量**：完整的 ITSM 实践框架",
+    "tags": ["ITSM", "service-management", "itil", "knowledge-acquisition", "web-crawl"]
+  },
+  
+  "relationships": {
+    "references": [],
+    "referenced_by": [
+      "202604111306-itsm-service-request",
+      "202604111306-itsm-itam",
+      "202604111306-web-learning-skill"
+    ],
+    "depends_on": [],
+    "blocks": []
+  },
+  
+  "metadata": {
+    "source": "Web learning from https://www.atlassian.com/zh/itsm",
+    "last_reviewed_at": null,
+    "review_count": 0,
+    "version": 1
+  }
+}
