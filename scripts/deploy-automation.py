@@ -43,8 +43,8 @@ class DeploymentLogger:
         }
         self.logs.append(entry)
         print(f"[{datetime.now().strftime('%H:%M:%S')}] 📝 Step {step}: {op_name}")
-        print(f"   目的：{purpose}")
-        print(f"   结果：{result}\n")
+        print(f"   Purpose: {purpose}")
+        print(f"   Result: {result}\n")
         return entry
     
     def get_report(self) -> str:
@@ -68,9 +68,9 @@ class SSHConnection:
         self.connected = False
     
     def execute(self, command: str, check: bool = True) -> tuple:
-        # 注意: 由于SSH命令需要shell解析，这里使用shell=True
-        # command参数来自内部，不会直接暴露给用户输入
-        # 如需更高安全性，可使用paramiko库替代subprocess
+        # Note: Since SSH commands need shell parsing, use shell=True here
+        # The command parameter comes from internal logic, not user input
+        # For higher security, consider using paramiko library instead of subprocess
         """Execute remote command via SSH."""
         cmd = f'ssh -i "{self.key_path}" -p {self.port} -o StrictHostKeyChecking=no ' \
               f'{self.username}@{self.host} "{command}"'
@@ -468,7 +468,7 @@ WorkingDirectory=/var/www/{project_name}
 ExecStart=/var/www/{project_name}/{project_name}
 Restart=always
 RestartSec=5
-Environment="GO环境=production"
+Environment="GO_ENV=production"
 
 [Install]
 WantedBy=multi-user.target

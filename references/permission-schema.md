@@ -19,7 +19,7 @@ This document defines the standard data structures for user permission managemen
 |-------|------|-------------|---------|
 | resource_type | string | Category of resource | `"api"`, `"menu"`, `"module"`, `"component"` |
 | resource_id | string | Unique identifier | `"/api/users/*"`, `"MENU_USERS_MGT"` |
-| resource_name | string | Display name | `"用户管理"`, `"API 接口"` |
+| resource_name | string | Display name | `"User Management"`, `"API Interface"` |
 | actions | array | Allowed action permissions | `["view", "create", "update"]` |
 
 ## Data Permission Object
@@ -50,11 +50,11 @@ This document defines the standard data structures for user permission managemen
 
 | Value | Meaning | Description |
 |-------|---------|-------------|
-| `all` | 全部数据 | Access all system data |
-| `dept_sub` | 本部门及以下 | Current dept + all sub-departments |
-| `dept` | 仅本部门 | Only current department |
-| `own` | 仅本人 | Only records created by self |
-| `custom` | 自定义 | Specific departments selected manually |
+| `all` | All Data | Access all system data |
+| `dept_sub` | Department + Sub-departments | Current dept + all sub-departments |
+| `dept` | Department Only | Only current department |
+| `own` | Own Data Only | Only records created by self |
+| `custom` | Custom | Specific departments selected manually |
 
 ## Role Permission Assignment Object
 

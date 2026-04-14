@@ -1,60 +1,60 @@
-# 🚀 Website Deployment Quick Start
+# Website Deployment Quick Start
 
-## 使用说明
+## Usage
 
-只需提供**源代码 + SSH 凭证**,即可完成从开发环境到公网可访问生产环境的完整部署!
+Simply provide **source code + SSH credentials**, and complete the full deployment from development environment to publicly accessible production!
 
 ---
 
-## 一、准备工作
+## 1. Preparation
 
-### 1. 获取服务器信息
+### 1.1 Get Server Information
 
-您需要准备:
+What you need to prepare:
 
-| 项目 | 示例值 | 说明 |
-|------|--------|------|
-| **SSH 用户** | `roo` | 默认管理员账户 |
-| **服务器 IP** | `47.100.x.x` | 阿里云 ECS 公网 IP |
-| **SSH 端口** | `22` | 如需修改请提前设置 |
-| **私钥路径** | `~/.ssh/id_rsa` | SSH 密钥文件位置 |
-| **域名 (可选)** | `example.com` | HTTPS 证书需要 |
+| Item | Example Value | Description |
+|------|-------------|-------------|
+| **SSH User** | `roo` | Default admin account |
+| **Server IP** | `47.100.x.x` | Alibaba Cloud ECS public IP |
+| **SSH Port** | `22` | Set in advance if modified |
+| **Private Key Path** | `~/.ssh/id_rsa` | SSH key file location |
+| **Domain (Optional)** | `example.com` | Required for HTTPS certificate |
 
-### 2. 准备代码
+### 1.2 Prepare Code
 
-支持以下技术栈:
+Supported technology stacks:
 
 ```bash
-# Node.js 项目
+# Node.js project
 package.json
 ├── src/
-├── package.json  ← 自动识别
+├── package.json  ← Auto-detected
 
-# Python 项目  
+# Python project  
 requirements.txt
 ├── app.py
-└── requirements.txt  ← 自动识别
+└── requirements.txt  ← Auto-detected
 
-# Go 项目
+# Go project
 main.go
-└── go.mod  ← 自动识别
+└── go.mod  ← Auto-detected
 
-# 静态网站
+# Static website
 index.html
-└── static/  ← 自动识别为 Nginx
+└── static/  ← Auto-detected for Nginx
 ```
 
 ---
 
-## 二、一键部署命令
+## 2. One-Click Deployment Command
 
-### 方式 A: 使用自动化脚本 (推荐)
+### Method A: Using Automation Script (Recommended)
 
 ```bash
-# 1. 克隆或下载技能包
+# 1. Clone or download skill package
 cd ~/.openclaw/workspace/skills/public/website-deploy/scripts
 
-# 2. 执行部署
+# 2. Execute deployment
 python3 deploy-automation.py \
     --host 47.100.x.x \
     --username roo \
@@ -65,53 +65,53 @@ python3 deploy-automation.py \
     --domain mysite.com
 ```
 
-### 方式 B: 直接告诉我
+### Method B: Tell Me Directly
 
-**您只需要说:**
+**All you need to say:**
 
-> "帮我部署一个 Node.js 项目到阿里云 ECS"
+> "Help me deploy a Node.js project to Alibaba Cloud ECS"
 > 
-> 并附上:
-> - 本地代码文件夹路径：`~/projects/my-app/dist`
-> - SSH 信息:`roo@47.100.x.x`, 私钥在`~/.ssh/alibaba.key`
-> - 域名:`mysite.com`(如有)
+> And include:
+> - Local code folder path: `~/projects/my-app/dist`
+> - SSH info: `roo@47.100.x.x`, private key at `~/.ssh/alibaba.key`
+> - Domain: `mysite.com` (if available)
 
-我会自动完成所有步骤!
+I'll automatically complete all steps!
 
 ---
 
-## 三、部署流程图
+## 3. Deployment Flowchart
 
 ```mermaid
 graph TD
-    A[提供代码 + SSH] --> B{检测项目类型}
-    B -->|Node.js| C[安装 Node.js + PM2]
-    B -->|Python| D[安装 Python + Pip]
-    B -->|Go| E[安装 Go runtime]
+    A[Provide Code + SSH] --> B{Detect Project Type}
+    B -->|Node.js| C[Install Node.js + PM2]
+    B -->|Python| D[Install Python + Pip]
+    B -->|Go| E[Install Go runtime]
     B -->|Static| F[Nginx only]
     
-    C --> G[安全加固配置]
+    C --> G[Security Hardening]
     D --> G
     E --> G
     F --> G
     
-    G --> H[上传代码]
-    H --> I[安装依赖]
-    I --> J[配置进程管理]
-    J --> K[设置 Nginx 代理]
-    K --> L{有域名？}
-    L -->|是 | M[申请 SSL 证书]
-    L -->|否 | N[HTTP 访问]
-    M --> O[验证服务健康度]
+    G --> H[Upload Code]
+    H --> I[Install Dependencies]
+    I --> J[Configure Process Management]
+    J --> K[Setup Nginx Proxy]
+    K --> L{Has Domain?}
+    L -->|Yes| M[Request SSL Certificate]
+    L -->|No| N[HTTP Access]
+    M --> O[Verify Service Health]
     N --> O
-    O --> P[公开访问!]
+    O --> P[Public Access!]
 ```
 
 ---
 
-## 四、常见部署场景
+## 4. Common Deployment Scenarios
 
-### 场景 1: Express.js API Server
+### Scenario 1: Express.js API Server
 
 ```bash
 python3 deploy-automation.py \
@@ -123,19 +123,19 @@ python3 deploy-automation.py \
     --domain api.mysite.com
 ```
 
-**部署后访问:**
+**After deployment:**
 - API: `https://api.mysite.com`
 - Health check: `https://api.mysite.com/health`
 
 ---
 
-### 场景 2: React/Vue Frontend
+### Scenario 2: React/Vue Frontend
 
 ```bash
-# 先本地构建
+# Build locally first
 npm run build
 
-# 然后部署
+# Then deploy
 python3 deploy-automation.py \
     --host YOUR_IP \
     --key ~/.ssh/key \
@@ -144,13 +144,13 @@ python3 deploy-automation.py \
     --domain www.mysite.com
 ```
 
-**部署后访问:**
-- 静态文件托管在`https://www.mysite.com`
-- 自动配置 CDN 缓存
+**After deployment:**
+- Static files hosted at `https://www.mysite.com`
+- CDN cache auto-configured
 
 ---
 
-### 场景 3: Django/FastAPI Backend
+### Scenario 3: Django/FastAPI Backend
 
 **Pre-requisite: Configure WSGI entry point (see [WSGI-ENTRY-POINTS.md](references/WSGI-ENTRY-POINTS.md))**
 
@@ -183,7 +183,7 @@ sudo systemctl daemon-reload
 sudo systemctl restart backend
 ```
 
-**部署后访问:**
+**After deployment:**
 - Django: `http://backend.mysite.com`
 - FastAPI docs: `http://backend.mysite.com/docs`
 
@@ -196,67 +196,67 @@ sudo systemctl restart backend
 
 ---
 
-## 五、部署检查清单
+## 5. Deployment Checklist
 
-部署完成后，验证以下几点:
+After deployment is complete, verify these items:
 
-### ✅ 基础验证
+### Basic Verification
 
-- [ ] SSH 可以正常登录
-- [ ] Nginx 状态:`systemctl status nginx` → active (running)
-- [ ] 防火墙 UFW 开启:`ufw status` → Status: active
-- [ ] 应用进程运行中 (PM2/systemd)
+- [ ] SSH connection works normally
+- [ ] Nginx status: `systemctl status nginx` → active (running)
+- [ ] Firewall UFW enabled: `ufw status` → Status: active
+- [ ] Application process running (PM2/systemd)
 
-### ✅ 功能验证
+### Function Verification
 
-- [ ] 浏览器访问: `http(s)://your-domain.com`
-- [ ] SSL 证书有效:`curl -I https://your-domain.com` → HTTP/2 200
-- [ ] API 接口响应正常
-- [ ] 日志查看:`pm2 logs project-name` 无报错
+- [ ] Browser access: `http(s)://your-domain.com`
+- [ ] SSL certificate valid: `curl -I https://your-domain.com` → HTTP/2 200
+- [ ] API interface responding normally
+- [ ] Logs show no errors: `pm2 logs project-name`
 
-### ✅ 监控验证
+### Monitoring Verification
 
-- [ ] Fail2Ban 正在守护 SSH:`systemctl status fail2ban`
-- [ ] Auto-update 已启用:`dpkg -l | grep unattended-upgrades`
-- [ ] 错误日志可查:`tail -f /var/log/nginx/error.log`
+- [ ] Fail2Ban protecting SSH: `systemctl status fail2ban`
+- [ ] Auto-update enabled: `dpkg -l | grep unattended-upgrades`
+- [ ] Error logs viewable: `tail -f /var/log/nginx/error.log`
 
 ---
 
-## 六、故障排除
+## 6. Troubleshooting
 
-### ❌ SSH 连接失败
+### SSH Connection Failed
 
 ```bash
-# 检查：确保 SSH 端口在阿里云安全组已开放
-# 阿里云控制台 → 云服务器 ECS → 安全组 → 添加入方向规则
-# 端口：22, 协议：TCP, 授权对象：0.0.0.0/0
+# Check: Ensure SSH port is open in Alibaba Cloud security group
+# Alibaba Console → ECS → Security Groups → Add inbound rule
+# Port: 22, Protocol: TCP, Source: 0.0.0.0/0
 ```
 
-### ❌ Nginx 无法启动
+### Nginx Won't Start
 
 ```bash
-# 检查配置文件语法
+# Check config syntax
 sudo nginx -t
 
-# 查看错误详情
+# View error details
 sudo tail -f /var/log/nginx/error.log
 ```
 
-### ❌ 应用进程崩溃
+### Application Process Crashed
 
 ```bash
-# PM2 管理的项目
+# For PM2 managed projects
 pm2 list
 pm2 logs my-project
 
-# Systemd 管理的项目
+# For Systemd managed projects
 systemctl status my-project
 journalctl -u my-project -n 50
 ```
 
-### ❌ SSL 证书过期
+### SSL Certificate Expired
 
-Let's Encrypt 证书会自动续期 (90 天有效期),手动测试:
+Let's Encrypt certificates auto-renew (90-day validity), test manually:
 
 ```bash
 sudo certbot renew --dry-run
@@ -264,32 +264,32 @@ sudo certbot renew --dry-run
 
 ---
 
-## 七、下一步优化建议
+## 7. Next Optimization Suggestions
 
-部署完成后可以考虑:
+After deployment is complete, consider:
 
-1. **启用 CDN**: Cloudflare/DNSPod 加速全球访问
-2. **数据库独立**: 迁移到 RDS MySQL/PostgreSQL
-3. **CI/CD 流程**: GitHub Actions 自动部署每次 git push
-4. **监控告警**: Prometheus + Grafana 实时性能监控
-5. **备份策略**: 每日自动备份代码和数据库到 OSS
-
----
-
-## 八、技术支持
-
-遇到问题?
-
-| 问题类型 | 解决途径 |
-|---------|----------|
-| SSH 权限 | 检查阿里云安全组和 SSH 配置 |
-| 依赖安装失败 | 查看 `/var/www/{project}/logs/out.log` |
-| 内存溢出 | 增加 `max_memory_restart` PM2 配置 |
-| 网络不通 | 检查安全组和 UFW 规则 |
-| SSL 错误 | 重新运行 `certbot --nginx -d domain` |
+1. **Enable CDN**: Cloudflare/DNSPod for global acceleration
+2. **Independent Database**: Migrate to RDS MySQL/PostgreSQL
+3. **CI/CD Pipeline**: GitHub Actions auto-deploy on git push
+4. **Monitoring Alerts**: Prometheus + Grafana for real-time performance
+5. **Backup Strategy**: Daily auto-backup of code and database to OSS
 
 ---
 
-**准备好了吗?现在就开始您的第一次自动化部署!** 🚀
+## 8. Technical Support
 
-需要帮助?直接告诉我:"请帮我部署 XXX 项目到阿里云 ECS",我会全程引导!
+Having issues?
+
+| Issue Type | Solution |
+|------------|----------|
+| SSH Permission | Check Alibaba Cloud security group and SSH config |
+| Dependency Install Failed | Check `/var/www/{project}/logs/out.log` |
+| Memory Overflow | Increase `max_memory_restart` in PM2 config |
+| Network Unreachable | Check security group and UFW rules |
+| SSL Error | Re-run `certbot --nginx -d domain` |
+
+---
+
+**Ready? Now start your first automated deployment!** 
+
+Need help? Just tell me: "Please help me deploy XXX project to Alibaba Cloud ECS", and I'll guide you through the entire process!

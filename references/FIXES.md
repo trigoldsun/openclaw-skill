@@ -1,39 +1,39 @@
-# 🔧 网站部署技能 - 修复记录
+# Website Deployment Skill - Fix Log
 
-**检查时间:** 2026-04-11 12:37 GMT+8  
-**检查范围:** 完整 6 个文件深度审查
-
----
-
-## 📊 问题发现总结
-
-| 优先级 | 文件 | 问题描述 | 修复状态 |
-|--------|------|----------|----------|
-| 🔴 **严重** | security-hardening.sh | SSH 用户判断逻辑错误 | ✅ 已修复 |
-| 🔴 **严重** | deploy-automation.py | Python 部署缺少 Gunicorn 配置 | ✅ 已修复 |
-| 🔴 **严重** | deploy-automation.py | Go systemd ExecStart 使用 go run 不当 | ✅ 已修复 |
-| 🟡 **中等** | SKILL.md | Docker 支持只有列表没有流程 | ✅ 已补充 |
-| 🟡 **中等** | SKILL.md | PHP 支持只有列表没有流程 | ✅ 已补充 |
-| 🟡 **中等** | ecosystem.config.js | PM2 内存限制过于保守 (512M) | ✅ 已调整至 1G |
-| 🟢 **轻微** | deploy-automation.py | 静态站点处理不完整 | ✅ 已完善 |
-| 🟢 **轻微** | deploy-automation.py | Docker 部署流程缺失 | ✅ 已添加 |
+**Inspection Date:** 2026-04-11 12:37 GMT+8  
+**Scope:** Complete 6-file deep review
 
 ---
 
-## 🔴 严重问题详细修复
+## Issue Summary
 
-### 1. security-hardening.sh - SSH 用户判断错误
+| Priority | File | Issue Description | Status |
+|----------|------|-------------------|--------|
+| Severe | security-hardening.sh | SSH user detection logic error | Fixed |
+| Severe | deploy-automation.py | Python deployment missing Gunicorn config | Fixed |
+| Severe | deploy-automation.py | Go systemd ExecStart using improper go run | Fixed |
+| Medium | SKILL.md | Docker support only listing, no workflow | Added |
+| Medium | SKILL.md | PHP support only listing, no workflow | Added |
+| Medium | ecosystem.config.js | PM2 memory limit too conservative (512M) | Adjusted to 1G |
+| Minor | deploy-automation.py | Static site handling incomplete | Fixed |
+| Minor | deploy-automation.py | Docker deployment workflow missing | Added |
 
-**原始代码:**
+---
+
+## Severe Issues - Detailed Fixes
+
+### 1. security-hardening.sh - SSH User Detection Error
+
+**Original Code:**
 ```bash
 if [ "$(id -u roo 2>/dev/null)" != "0" ]; then
-    # 这个条件在 roo 不存在时也会进入 (因为 id -u 返回非 0)
+    # This condition also enters when roo doesn't exist (because id -u returns non-0)
 fi
 ```
 
-**问题:** 判断逻辑颠倒，导致用户不存在时也能执行设置密钥
+**Problem:** Logic was inverted, allowing setup to execute even when user doesn't exist
 
-**修复后:**
+**After Fix:**
 ```bash
 if id roo &>/dev/null; then
     ROO_HOME=$(eval echo ~roo)
@@ -45,25 +45,25 @@ else
 fi
 ```
 
-**改进:**
-- ✅ 使用正确的方式判断用户是否存在
-- ✅ 给出明确的错误提示和用户创建指引
+**Improvements:**
+- Uses correct method to check if user exists
+- Provides clear error message and user creation guide
 
 ---
 
-### 2. deploy-automation.py - Python 部署缺少 Gunicorn
+### 2. deploy-automation.py - Python Deployment Missing Gunicorn
 
-**原始代码:**
+**Original Code:**
 ```python
 elif project_type == 'python':
     self._install_python(ssh_conn, step)
     step += 3
-    # ❌ 完全没有启动服务的代码!
+    # No service startup code at all!
 ```
 
-**问题:** 只安装了 Python 环境，但没有配置和启动 Gunicorn WSGI 服务器
+**Problem:** Only installed Python environment, but didn't configure and start Gunicorn WSGI server
 
-**修复后:**
+**After Fix:**
 ```python
 elif project_type == 'python':
     self._install_python(ssh_conn, step)
@@ -102,24 +102,24 @@ WantedBy=multi-user.target
     ssh_conn.execute(f"sudo systemctl start {project_name}")
 ```
 
-**改进:**
-- ✅ 自动创建 Gunicorn systemd 服务
-- ✅ 多进程模式 (--workers 4)
-- ✅ Unix socket 方式与 Nginx 配合
-- ✅ 完整的开机自启配置
+**Improvements:**
+- Automatically creates Gunicorn systemd service
+- Multi-process mode (--workers 4)
+- Unix socket integration with Nginx
+- Complete auto-start configuration
 
 ---
 
-### 3. deploy-automation.py - Go 项目编译方式不当
+### 3. deploy-automation.py - Go Project Build Method Incorrect
 
-**原始代码:**
+**Original Code:**
 ```ini
 ExecStart=/usr/local/go/bin/go run main.go
 ```
 
-**问题:** `go run` 每次启动都会重新编译，性能差且浪费资源
+**Problem:** `go run` recompiles every startup, poor performance and wasteful
 
-**修复后:**
+**After Fix:**
 ```bash
 # Build the Go binary first
 ssh_conn.execute(f"cd /var/www/{project_name} && go build -o {project_name} .")
@@ -128,24 +128,24 @@ ssh_conn.execute(f"cd /var/www/{project_name} && go build -o {project_name} .")
 ExecStart=/var/www/{project_name}/{project_name}
 ```
 
-**改进:**
-- ✅ 先编译成二进制文件，启动更快
-- ✅ 节省 CPU 和资源
-- ✅ 符合生产环境最佳实践
+**Improvements:**
+- Compile to binary first, faster startup
+- Saves CPU and resources
+- Follows production best practices
 
 ---
 
-## 🟡 中等问题详细修复
+## Medium Issues - Detailed Fixes
 
-### 4. SKILL.md - Docker Compose 部署流程补充
+### 4. SKILL.md - Docker Compose Deployment Workflow Added
 
-**原始内容:**
+**Original Content:**
 ```markdown
 | **Docker** | Docker Compose | `docker-compose.yml` present |
 ```
-只是简单提及，没有任何详细步骤
+Just mentioned briefly, no detailed steps
 
-**修复后:** 新增完整章节 `Phase 2B: Docker Deployment Workflow`
+**After Fix:** Added complete section `Phase 2B: Docker Deployment Workflow`
 
 ```markdown
 ### Phase 2B: Docker Deployment Workflow
@@ -176,20 +176,20 @@ server {
 }
 ```
 
-**优势:**
-- ✅ 环境一致性：开发/生产环境完全一致
-- ✅ 快速扩展：通过 K8s/Docker Swarm 横向扩展
-- ✅ 资源隔离：每个服务独立运行
-- ✅ 易于维护：只需管理 docker-compose.yml
+**Benefits:**
+- Environment consistency: dev/prod identical
+- Easy scaling via K8s/Docker Swarm
+- Resource isolation: each service runs independently
+- Easy maintenance: only docker-compose.yml to manage
 ```
 
 ---
 
-### 5. SKILL.md - PHP 部署流程补充
+### 5. SKILL.md - PHP Deployment Workflow Added
 
-**原始内容:** 仅有列表项提及，无具体步骤
+**Original Content:** Only listed, no detailed steps
 
-**修复后:** 新增完整章节 `Phase 2C: PHP Deployment Workflow`
+**After Fix:** Added complete section `Phase 2C: PHP Deployment Workflow`
 
 ```markdown
 ### Phase 2C: PHP Deployment Workflow
@@ -227,37 +227,37 @@ server {
 }
 ```
 
-**目的:** 完整配置 PHP 应用程序环境，支持 Laravel/WordPress/Django 等框架
+**Purpose:** Complete PHP application environment configuration, supports Laravel/WordPress/Django frameworks
 ```
 
 ---
 
-### 6. ecosystem.config.js - PM2 内存限制调整
+### 6. ecosystem.config.js - PM2 Memory Limit Adjusted
 
-**原始配置:**
+**Original Config:**
 ```javascript
 max_memory_restart: "512M", // Restart if memory exceeds limit
 ```
 
-**修复后:**
+**After Fix:**
 ```javascript
 instances: "auto", // Auto-detect CPU cores and use optimal number
 max_memory_restart: "1G", // Restart if memory exceeds limit (increased from 512M)
 ```
 
-**改进:**
-- ✅ 更灵活的实例数量 (`auto` vs `2`)
-- ✅ 更大的内存阈值适应现代应用需求
+**Improvements:**
+- More flexible instance count (`auto` vs `2`)
+- Larger memory threshold for modern application needs
 
 ---
 
-## 🟢 轻微问题修复
+## Minor Issues Fixed
 
-### 7. deploy-automation.py - 静态站点处理
+### 7. deploy-automation.py - Static Site Handling
 
-**修复前:** 未明确处理，可能回退到默认流程
+**Before Fix:** Not explicitly handled, might fall back to default flow
 
-**修复后:** 
+**After Fix:**
 ```python
 elif project_type == 'static':
     self.logger.log(step,
@@ -284,11 +284,11 @@ elif project_type == 'static':
 
 ---
 
-### 8. deploy-automation.py - Docker 类型检测优先级提升
+### 8. deploy-automation.py - Docker Type Detection Priority
 
-**修复前:** 检测顺序可能将带 docker-compose 的 Node.js 项目误判为 nodejs
+**Before Fix:** Detection order might misidentify Node.js project with docker-compose as nodejs
 
-**修复后:**
+**After Fix:**
 ```python
 def detect_project_type(self, code_path: str) -> str:
     files = os.listdir(code_path)
@@ -303,39 +303,39 @@ def detect_project_type(self, code_path: str) -> str:
     # ... rest of checks
 ```
 
-**改进:** 确保 Docker 项目优先被识别
+**Improvement:** Ensures Docker projects are identified first
 
 ---
 
-## 🧪 验证结果
+## Verification Results
 
-✅ **Python 脚本语法检查通过**
+Python script syntax check passed:
 ```bash
 python3 -m py_compile scripts/deploy-automation.py
-✅ Python syntax OK
+Python syntax OK
 ```
 
-✅ **所有文件完整性验证完成**
-- SKILL.md: 400+ 行，包含完整 8 种技术栈部署流程
-- nginx-configs.md: 4 个模板 (Node/Python/Go/PHP)
-- ecosystem.config.js: 优化配置
-- security-hardening.sh: 安全加固脚本
-- deploy-automation.py: 100+ 行自动化部署脚本
-- QUICKSTART.md: 用户指南
+All file integrity verification complete:
+- SKILL.md: 400+ lines, complete 8 technology stack deployment workflows
+- nginx-configs.md: 4 templates (Node/Python/Go/PHP)
+- ecosystem.config.js: Optimized configuration
+- security-hardening.sh: Security hardening script
+- deploy-automation.py: 100+ lines automated deployment script
+- QUICKSTART.md: User guide
 
 ---
 
-## 📋 待进一步优化项 (可选)
+## Future Optimization Items (Optional)
 
-以下项目未在首次修复中涉及，可作为后续优化:
+The following items were not addressed in the initial fix and can be used for subsequent optimization:
 
-1. **回滚机制** - 部署失败时快速恢复到之前状态
-2. **数据库迁移自动化** - Django/Laravel migrations 处理
-3. **环境变量注入** - .env 文件自动替换
-4. **多阶段构建** - Docker 镜像构建优化
-5. **监控集成** - Prometheus/Grafana 自动化配置
+1. **Rollback mechanism** - Quickly restore to previous state on deployment failure
+2. **Database migration automation** - Django/Laravel migrations handling
+3. **Environment variable injection** - .env file auto-replacement
+4. **Multi-stage builds** - Docker image build optimization
+5. **Monitoring integration** - Prometheus/Grafana automated configuration
 
 ---
 
-**修复完成时间:** 2026-04-11 12:45 GMT+8  
-**修复人:** 三金助手 (基于自动决策模式)
+**Fix Completion Time:** 2026-04-11 12:45 GMT+8  
+**Fixed By:** AI Assistant (based on automatic decision mode)

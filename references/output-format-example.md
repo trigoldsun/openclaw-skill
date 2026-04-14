@@ -194,24 +194,24 @@ Based on title and structure analysis:
 
 ```
 Step 1: crawl_initiated
-   目的：Starting crawl from https://docs.example.com/getting-started
-   结果：Max depth set to 3
+   Purpose: Starting crawl from https://docs.example.com/getting-started
+   Result: Max depth set to 3
 
 Step 2: fetch_start
-   目的：Fetching starting page
-   结果：Success - HTML received (24KB)
+   Purpose: Fetching starting page
+   Result: Success - HTML received (24KB)
 
 Step 3: page_learned
-   目的：Learned initial page
-   结果：Type: documentation, Links found: 12
+   Purpose: Learned initial page
+   Result: Type: documentation, Links found: 12
 
 Step 4-18: recursive_crawling
-   目的：Following all outbound links
-   结果：14 additional pages learned
+   Purpose: Following all outbound links
+   Result: 14 additional pages learned
 
 Step 19: crawl_complete
-   目的：Finalize and generate report
-   结果：15 total pages in 12.4s
+   Purpose: Finalize and generate report
+   Result: 15 total pages in 12.4s
 
 === WEB LEARNING AUDIT LOG ===
 ```

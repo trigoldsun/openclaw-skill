@@ -87,13 +87,13 @@ Before starting deployment, verify:
 ```bash
 sudo apt update && sudo apt upgrade -y
 ```
-**目的：** 确保所有系统包为最新版本，避免安全漏洞
+**Purpose:** Ensure all system packages are updated to latest versions, avoiding security vulnerabilities
 
 #### Step 1.2: Install Core Utilities
 ```bash
 sudo apt install -y curl wget git unzip zip build-essential
 ```
-**目的：** 基础工具准备，后续安装依赖使用
+**Purpose:** Install base utilities needed for subsequent dependency installation
 
 ---
 
@@ -108,7 +108,7 @@ sudo apt-get install -y nodejs
 # Install PM2 globally
 sudo npm install -g pm2
 ```
-**目的：** 提供 Node.js 运行环境和进程管理器
+**Purpose:** Provide Node.js runtime environment and process manager
 
 #### For Python Applications:
 ```bash
@@ -118,7 +118,7 @@ sudo apt install -y python3 python3-pip python3-venv
 # Optional: Install PostgreSQL client
 sudo apt install -y postgresql-client libpq-dev
 ```
-**目的：** 提供 Python 虚拟环境支持
+**Purpose:** Provide Python virtual environment support
 
 #### For Docker Applications (Recommended for Production):
 ```bash
@@ -135,7 +135,7 @@ sudo usermod -aG docker $USER
 # Verify installation
 docker --version && docker compose version
 ```
-**目的：** 提供容器化运行环境，支持一键启动多容器服务
+**Purpose:** Provide containerized runtime environment, support one-click multi-container service startup
 
 ---
 
@@ -201,13 +201,13 @@ sudo ln -s /etc/nginx/sites-available/docker-app /etc/nginx/sites-enabled/
 sudo nginx -t && sudo systemctl reload nginx
 ```
 
-**目的：** 将 Docker 容器暴露到公网访问，确保端口映射正确
+**Purpose:** Expose Docker containers to public access, ensure port mapping is correct
 
-**优势：**
-- ✅ 环境一致性：开发/生产环境完全一致
-- ✅ 快速扩展：通过 K8s/Docker Swarm 横向扩展
-- ✅ 资源隔离：每个服务独立运行
-- ✅ 易于维护：只需管理 docker-compose.yml
+**Benefits:**
+- Environment consistency: dev/prod identical
+- Easy scaling: horizontal scaling via K8s/Docker Swarm
+- Resource isolation: each service runs independently
+- Easy maintenance: only docker-compose.yml to manage
 
 ---
 
@@ -286,7 +286,7 @@ sudo systemctl restart php8.1-fpm
 sudo systemctl reload nginx
 ```
 
-**目的：** 完整配置 PHP 应用程序环境，支持 Laravel/WordPress/Django 等框架
+**Purpose:** Complete PHP application environment configuration, supports Laravel/WordPress/Django frameworks
 
 ---
 
@@ -298,7 +298,7 @@ curl -L https://go.dev/dl/go1.21.6.linux-amd64.tar.gz | \
 export PATH=$PATH:/usr/local/go/bin
 echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
 ```
-**目的：** 编译和运行 Go 程序
+**Purpose:** Compile and run Go programs
 
 ---
 
@@ -309,7 +309,7 @@ echo 'export PATH=$PATH:/usr/local/go/bin' >> ~/.bashrc
 mkdir -p /var/www/{project-name}
 cd /var/www/{project-name}
 ```
-**目的：** 标准部署目录，便于管理
+**Purpose:** Standard deployment directory for easy management
 
 #### Step 3.2: Transfer Code Files
 ```bash
@@ -322,7 +322,7 @@ unzip -o deploy.zip
 # Option C: SCP from local
 scp -r ./dist/* roo@server:/var/www/{project-name}/
 ```
-**目的：** 将代码部署到服务器
+**Purpose:** Deploy code to server
 
 #### Step 3.3: Install Dependencies
 
@@ -331,7 +331,7 @@ scp -r ./dist/* roo@server:/var/www/{project-name}/
 npm ci --only=production
 # or yarn install --frozen-lockfile
 ```
-**目的：** 仅安装生产依赖，加速启动
+**Purpose:** Install production dependencies only, speed up startup
 
 **Python:**
 ```bash
@@ -339,7 +339,7 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
-**目的：** 隔离项目依赖环境
+**Purpose:** Isolate project dependency environment
 
 ---
 
@@ -354,7 +354,7 @@ pm2 start app.js --name "{project-name}" --node-args="--max-old-space-size=512"
 pm2 save
 pm2 startup ubuntu -u roo
 ```
-**目的：** 保证服务开机自启和崩溃自动重启
+**Purpose:** Ensure service auto-start on boot and auto-restart on crash
 
 #### Python Application (Gunicorn with Systemd):
 ```bash
@@ -387,7 +387,7 @@ sudo systemctl start {project-name}
 # - Flask: app:app
 # - FastAPI: main:app
 ```
-**目的：** 使用 systemd 管理 Gunicorn，实现开机自启和崩溃自动重启
+**Purpose:** Use systemd to manage Gunicorn, enable auto-start and crash recovery
 
 #### Go Application (Systemd):
 Create `/etc/systemd/system/{project}.service`:
@@ -412,7 +412,7 @@ sudo systemctl daemon-reload
 sudo systemctl enable {project}
 sudo systemctl start {project}
 ```
-**目的：** 原生系统级守护进程管理
+**Purpose:** Native system-level daemon management
 
 ---
 
@@ -452,7 +452,7 @@ server {
     gzip_types text/plain application/json application/javascript text/css;
 }
 ```
-**目的：** 作为反向代理转发流量到应用，配置 HTTPS 和缓存
+**Purpose:** Act as reverse proxy to forward traffic to application, configure HTTPS and caching
 
 #### Enable Site:
 ```bash
@@ -461,7 +461,7 @@ sudo rm -rf /etc/nginx/sites-enabled/default
 sudo nginx -t
 sudo systemctl reload nginx
 ```
-**目的：** 启用站点并重新加载 Nginx
+**Purpose:** Enable site and reload Nginx
 
 ---
 
@@ -476,13 +476,13 @@ sudo apt install -y certbot python3-certbot-nginx
 ```bash
 sudo certbot --nginx -d your-domain.com -d www.your-domain.com
 ```
-**目的：** 免费获取 Let's Encrypt 证书并自动配置
+**Purpose:** Free Let's Encrypt certificate acquisition and auto-configuration
 
 #### Auto-Renewal Test:
 ```bash
 sudo certbot renew --dry-run
 ```
-**目的：** 验证证书自动续期正常（30 天到期前自动续期）
+**Purpose:** Verify certificate auto-renewal works correctly (auto-renews 30 days before expiry)
 
 ---
 
@@ -495,7 +495,7 @@ sudo ufw allow 'Nginx Full'
 sudo ufw allow 22/tcp  # SSH port if changed from default
 sudo ufw --force enable
 ```
-**目的：** 只开放必要端口，提高安全性
+**Purpose:** Only open necessary ports, improve security
 
 #### Optional Security Enhancements:
 ```bash
@@ -507,7 +507,7 @@ sudo systemctl enable fail2ban
 sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin no/' /etc/ssh/sshd_config
 sudo service ssh restart
 ```
-**目的：** 防止暴力破解攻击
+**Purpose:** Prevent brute-force attacks
 
 ---
 
@@ -527,7 +527,7 @@ CREATE DATABASE project_db;
 CREATE USER project_user WITH PASSWORD 'secure_password';
 GRANT ALL PRIVILEGES ON DATABASE project_db TO project_user;
 ```
-**目的：** 为应用提供持久化数据存储
+**Purpose:** Provide persistent data storage for the application
 
 ---
 
@@ -545,7 +545,7 @@ systemctl status {project}
 # Nginx status
 sudo systemctl status nginx
 ```
-**目的：** 确认各组件正常运行
+**Purpose:** Verify all components are running normally
 
 #### External Access Test:
 1. Visit: `https://your-domain.com`
@@ -561,14 +561,14 @@ Following the established protocol, every action includes:
 ```
 ## [Step Number] · [Operation Name]
 
-**目的：** [Why you're doing this]
+**Purpose:** [Why you're doing this]
 
-**操作细节：**
+**Operation Details:**
 - Input: [Parameters/Arguments]
 - Process: [What actions taken]
 - Output: [Results/Changes made]
 
-**审计记录：**
+**Audit Record:**
 - Timestamp: [Time]
 - Operator: [Who executed]
 - Change Log: [Before → After]
@@ -631,16 +631,16 @@ git pull origin main
 pm2 restart {project-name}
 ```
 
-**目的：** 自动化 CI/CD 流程，每次推送触发自动部署
+**Purpose:** Automate CI/CD pipeline, trigger auto-deployment on every push
 
 ---
 
 ## 📚 Additional Resources
 
 See bundled references:
-- [nginx-configs.md](references/nginx-configs.md) - 预配置的 Nginx 模板
-- [ecosystem.config.js](references/ecosystem.config.js.example) - PM2 配置文件示例
-- [security-hardening.sh](scripts/security-hardening.sh) - 安全加固脚本
+- [nginx-configs.md](references/nginx-configs.md) - Pre-configured Nginx templates
+- [ecosystem.config.js](references/ecosystem.config.js.example) - PM2 configuration example
+- [security-hardening.sh](scripts/security-hardening.sh) - Security hardening script
 
 ## Resources (optional)
 

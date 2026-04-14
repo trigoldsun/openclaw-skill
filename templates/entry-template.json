@@ -47,7 +47,7 @@
         "min_items": 0,
         "max_items": 10,
         "allowed_values": ["myself", "team", specific-names],
-        "example": ["myself", "孙鑫"]
+        "example": ["myself", "Sun Xin"]
       },
       "time": {
         "date": {

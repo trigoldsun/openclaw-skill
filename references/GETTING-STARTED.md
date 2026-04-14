@@ -180,7 +180,7 @@ python3 scripts/search_kb.py --topic "Knowledge" --project "Personal KB"
 ### ✅ Do:
 - **Add immediately** - Don't wait until end of day
 - **Link liberally** - Connect related items as you create
-- **Use consistent names** - "myself" not "me", "孙鑫" not "Sun Xin"
+- **Use consistent names** - "myself" not "me", "Sun Xin" not "sun-xin"
 - **Review weekly** - Update statuses, clean up stale links
 - **Archive old drafts** - Move completed ideas to "archived" status
 

@@ -77,9 +77,9 @@ class WebCrawlerLogger:
             "details": details or {}
         }
         self.logs.append(entry)
-        print(f"[{datetime.now().strftime('%H:%M:%S')}] 📝 Step {step}: {op_name}")
-        print(f"   目的：{purpose}")
-        print(f"   结果：{result}\n")
+        print(f"[{datetime.now().strftime('%H:%M:%S')}] Step {step}: {op_name}")
+        print(f"   Purpose: {purpose}")
+        print(f"   Result: {result}\n")
         return entry
     
     def get_report(self) -> str:
@@ -487,7 +487,7 @@ def generate_report(result: CrawlResult, format: str = 'json') -> str:
     
     else:  # Markdown format
         lines = [
-            "# 🌐 Web Learning Report",
+            "# Web Learning Report",
             "",
             f"**Start URL:** {result.start_url}",
             f"**Pages Learned:** {result.pages_learned}",
@@ -499,75 +499,56 @@ def generate_report(result: CrawlResult, format: str = 'json') -> str:
         ]
         
         for page_type, count in result.stats.get('by_type', {}).items():
-            lines.append(f"- {page_type}: {count}")
+            lines.append(f"- **{page_type.capitalize()}**: {count}")
         
-        lines.extend(["", "## Full Page List", ""])
-        for i, page in enumerate(result.pages, 1):
-            lines.append(f"**{i}.** [{page.title}]({page.url})")
-            lines.append(f"   - Type: {page.metadata.get('page_type')}")
-            lines.append(f"   - Depth: {page.crawl_info.get('depth_from_start')}")
-            lines.append(f"   - Outbound links: {len(page.links.get('outbound', []))}")
-            lines.append("")
+        lines.extend([
+            "",
+            "## Top Pages by Link Count",
+            ""
+        ])
+        
+        sorted_pages = sorted(result.pages, key=lambda p: p.metadata.get('link_count', 0), reverse=True)
+        for page in sorted_pages[:10]:
+            lines.append(f"- [{page.title}]({page.url}) - {page.metadata.get('link_count', 0)} links")
         
         return '\n'.join(lines)
 
 
 def main():
-    """CLI entry point."""
-    parser = argparse.ArgumentParser(description='Full-Site Webpage Learning Crawler')
-    parser.add_argument('--url', required=True, help='Starting URL to learn from')
-    parser.add_argument('--max-depth', type=int, default=3, 
-                       help='Maximum crawl depth (default: 3)')
-    parser.add_argument('--same-domain', action='store_true', default=True,
-                       help='Restrict to same domain only')
-    parser.add_argument('--allow-external', action='store_false',
-                       help='Allow external domain links')
-    parser.add_argument('--output', type=str, default='learning-report.json',
-                       help='Output file path')
-    parser.add_argument('--format', choices=['json', 'markdown'], default='json',
-                       help='Output format')
+    parser = argparse.ArgumentParser(description='Website Crawler & Learning System')
+    parser.add_argument('--url', required=True, help='Starting URL for crawl')
+    parser.add_argument('--max-depth', type=int, default=3, help='Maximum crawl depth')
+    parser.add_argument('--output', default='crawl_report.json', help='Output file path')
+    parser.add_argument('--format', choices=['json', 'markdown'], default='json', help='Report format')
+    parser.add_argument('--exclude', nargs='*', default=[], help='URL patterns to exclude')
     
     args = parser.parse_args()
     
-    # Configure options
-    options = {
-        'max_depth': args.max_depth,
-        'restrict_to_same_domain': args.same_domain,
-        'include_patterns': [],
-        'exclude_patterns': ['/admin/*', '/private/*', '/login*', '/auth*'],
-        'delay_between_requests': 0.5,
-        'timeout': 30
-    }
-    
-    # Initialize logger and crawler
     logger = WebCrawlerLogger()
-    crawler = FullSiteCrawler(logger, options)
+    crawler = FullSiteCrawler(logger, {
+        'max_depth': args.max_depth,
+        'exclude_patterns': ['/admin/*', '/private/*', '/login*'] + args.exclude
+    })
     
-    print(f"\n🚀 Starting web learning from: {args.url}\n")
+    print(f"Starting crawl from: {args.url}")
+    print(f"Max depth: {args.max_depth}")
+    print("-" * 50)
     
-    # Run crawl
     result = crawler.run_crawl(args.url)
     
     # Generate and save report
     report = generate_report(result, args.format)
     
-    with open(args.output, 'w', encoding='utf-8') as f:
-        f.write(report)
+    if args.output:
+        with open(args.output, 'w', encoding='utf-8') as f:
+            f.write(report)
+        print(f"\nReport saved to: {args.output}")
     
-    print(f"\n{'='*70}")
-    print("✅ WEB LEARNING COMPLETE!")
-    print('='*70)
-    print(f"\n📊 Summary:")
-    print(f"   • Pages learned: {result.pages_learned}")
-    print(f"   • Total content: {result.total_bytes_processed:,} bytes")
-    print(f"   • Duration: {result.duration_seconds:.1f}s")
-    print(f"\n📄 Full report saved to: {args.output}")
-    print("="*70)
-    
-    # Print audit log
-    print("\n🔍 Audit Log:")
-    print(logger.get_report())
+    print(f"\nCrawl Summary:")
+    print(f"  Pages learned: {result.pages_learned}")
+    print(f"  Duration: {result.duration_seconds:.1f}s")
+    print(f"  Avg depth: {result.stats.get('avg_depth', 0):.1f}")
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     main()
