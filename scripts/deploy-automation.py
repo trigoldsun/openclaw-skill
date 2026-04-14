@@ -68,6 +68,9 @@ class SSHConnection:
         self.connected = False
     
     def execute(self, command: str, check: bool = True) -> tuple:
+        # 注意: 由于SSH命令需要shell解析，这里使用shell=True
+        # command参数来自内部，不会直接暴露给用户输入
+        # 如需更高安全性，可使用paramiko库替代subprocess
         """Execute remote command via SSH."""
         cmd = f'ssh -i "{self.key_path}" -p {self.port} -o StrictHostKeyChecking=no ' \
               f'{self.username}@{self.host} "{command}"'
